@@ -78,6 +78,9 @@ Código referente ao Tribunal
 ## OOOO
 Códifo referete a origem do processo, que varia de 1 a 8999
 
+## Aplicação
+Com essas definições em mãos, desenvolvi uma função para gerar códigos CNJ aleatórios para realizar busca. 
 
+Baseado na implementação do [abjutils](https://github.com/abjur/abjutils/), implementei inicialmente uma função para obter o código verificador a partir dos dados gerados inicialmente. Com essas funções, realizei buscas limitadas ao governo do Estado do Ceará, no site do tribunal de justiça do Estado do Ceará. 
 ## Backend
 - Decidindo qual tecnologia irei utilizar para servir o backend. Considerando a integração com o script de webscrap, pensei em utilizar Flask, tendo em vista sua simplicidade, mas acredito que preciso de uma complexidade maior para realizar as buscas, o que me leva ao Django Rest. 
