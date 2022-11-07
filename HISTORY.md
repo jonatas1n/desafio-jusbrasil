@@ -47,5 +47,14 @@ Após o crawling, foram gerados arquivos JSON, separados por estados, com os pro
 # Banco de Dados
 A primeira ideia foi utilizar um banco de dados Postgres para fazer a persistência, mas considerando o foco deste desafio, optei por gerar um arquivo .json e utilizar a leitura dele no backend. Caso sobre tempo, posso retornar e implementar a persistência com mais detalhes.
 
+# API
+A framework escolhida para a API foi a FastAPI, devido sua fácil implementação, alta eficiência e a interface Swagger, permitindo realizar testes manuais pelo navegador. 
+
+## Endpoints
+Foram planejados três endpoints básicos para suprir as demandas da interface planejada.
+
+### search
+Esse endpoint, com os parâmetros de pesquisa, será o responsável por retornar os itens de pesquisa
+
 ## Backend
 - Decidindo qual tecnologia irei utilizar para servir o backend. Considerando a integração com o script de webscrap, pensei em utilizar Flask, tendo em vista sua simplicidade, mas acredito que preciso de uma complexidade maior para realizar as buscas, o que me leva ao Django Rest. 
