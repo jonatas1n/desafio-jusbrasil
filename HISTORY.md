@@ -55,7 +55,7 @@ Para começar, busquei elaborar os perfis de usuário da ferramenta. Para isso, 
 - O usuáfio leigo: Aquele que não tem formação em direito, mas está sendo autor ou réu de algum processo, tem um familiar ou amigo sendo processado e deseja acompanhar todas as movimentações;
 - O usuário do direito: Aquele que tem formação em direito, incompleto ou completo, e que usa essa ferramenta para estudar e notificar seus possíveis clientes.
 
-Nenhuma das duas personas deve ser abandonada na implementação dessa interface, contudo o segundo perfil já está suprido de serviços e ferramentas. Dessa forma, optei por desenvolver uma ferramenta mais amigável e acessível para pessoas leigas em assuntos jurídicos.
+Nenhuma das duas personas deve ser abandonada na implementação dessa interface, mas o segundo perfil já está suprido de serviços e ferramentas. Dessa forma, optei por desenvolver uma ferramenta mais amigável e acessível para pessoas leigas em assuntos jurídicos.
 
 # API
 A framework escolhida para a API foi a FastAPI, devido sua fácil implementação, alta eficiência e a interface Swagger, permitindo realizar testes manuais pelo navegador. 
