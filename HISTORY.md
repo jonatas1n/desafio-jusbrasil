@@ -48,16 +48,14 @@ Após o crawling, foram gerados arquivos JSON, separados por estados, com os pro
 A primeira ideia foi utilizar um banco de dados Postgres para fazer a persistência, mas considerando o foco deste desafio, optei por gerar um arquivo .json e utilizar a leitura dele no backend. Caso sobre tempo, posso retornar e implementar a persistência com mais detalhes.
 
 # Prototipação
-Antes de planejar os endpoints, foquei em idealizar e desenhar a página. Sabia que queria aproveitar o realismo dos dados, então decidi por adiar a arquiteturação da API, e focar no protótipo, para ter melhor noção dos requisitos.
+Antes de planejar os endpoints, foquei em idealizar e desenhar a página. Quis aproveitar o realismo dos dados, então decidi adiar a estruturação da API e focar no protótipo para ter melhor noção dos requisitos.
 
 ## As personas
-Para começar o desenho, busquei elaborar um perfil de usuário para a ferramenta. Para isso, fui observar a interface de serviços que realizam consultas processuais e também conversei com pessoas que estudam ou trabalham na área do direito. A partir dessas experiências, cheguei a dois perfilamentos básicos:
-- O usuáfio leigo: Aquele que não tem formação em direito, mas está sendo autor de algum caso, tem um familiar ou amigo sendo processado e quer acompanhar todas as movimentações
-- O usuário do direito: Aquele que tem formação em direito, incompleto ou completo, que usa essa ferramenta para estudo e notificação de seus possíveis clientes.
+Para começar, busquei elaborar os perfis de usuário da ferramenta. Para isso, observei a interface de serviços que realizam consultas processuais, e também conversei com pessoas que estudam ou trabalham na área do direito. A partir dessas experiências, cheguei a dois perfis básicos:
+- O usuáfio leigo: Aquele que não tem formação em direito, mas está sendo autor ou réu de algum processo, tem um familiar ou amigo sendo processado e deseja acompanhar todas as movimentações;
+- O usuário do direito: Aquele que tem formação em direito, incompleto ou completo, e que usa essa ferramenta para estudar e notificar seus possíveis clientes.
 
-Nenhum das duas personas deve ser abandonada na idealização dessa interface, mas considerando que o segundo perfil já está bem suprido de fontes, serviços e ferramentas, optei por tentar desenvolver uma ferramenta mais amigável e acessível para pessoas leigas no que tange o direito e os processos jurídicos.
-
-
+Nenhuma das duas personas deve ser abandonada na implementação dessa interface, contudo o segundo perfil já está suprido de serviços e ferramentas. Dessa forma, optei por desenvolver uma ferramenta mais amigável e acessível para pessoas leigas em assuntos jurídicos.
 
 # API
 A framework escolhida para a API foi a FastAPI, devido sua fácil implementação, alta eficiência e a interface Swagger, permitindo realizar testes manuais pelo navegador. 
