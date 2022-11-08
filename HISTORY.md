@@ -57,6 +57,9 @@ Para começar, busquei elaborar os perfis de usuário da ferramenta. Para isso, 
 
 Nenhuma das duas personas deve ser abandonada na implementação dessa interface, mas o segundo perfil já está suprido de serviços e ferramentas. Dessa forma, optei por desenvolver uma ferramenta mais amigável e acessível para pessoas leigas em assuntos jurídicos.
 
+## As dificuldades do usuário final
+O "juridiquês" em ferramentas de consulta de processos jurídicos era mais que esperado. Apontando assim
+
 # API
 A framework escolhida para a API foi a FastAPI, devido sua fácil implementação, alta eficiência e a interface Swagger, permitindo realizar testes manuais pelo navegador. 
 
