@@ -5,7 +5,7 @@ interface SearchContextData {
         title: string,
         code: string;
         link: string;
-        vara: string;
+        vara?: string;
     }>;
     recents: Array<{
         title: string,
