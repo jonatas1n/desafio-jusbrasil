@@ -5,6 +5,8 @@ export const theme = extendTheme({
         pallete: {
             "text": "#494949",
             "background": "#ECECEC",
+            "darkGray": "#8D8D8D",
+            "recentCard": "#F3F3F3",
         }
     },
     fonts: {
@@ -18,5 +20,34 @@ export const theme = extendTheme({
                 color: 'pallete.text'
             }
         }
+    },
+    textStyles: {
+        h2: {
+            fontSize: '1.5rem',
+            fontWeight: 300
+        },
+        h3: {
+            fontSize: '1.25rem',
+            fontWeight: 300,
+        },
+        h4: {
+            fontSize: '1.25rem',
+            fontWeight: 600,
+        },
+        h5: {
+            fontSize: '1rem',
+            fontWeight: 500,
+        },
+        overline: {
+            fontSize: '14px',
+            fontWeight: 400,
+            letterSpacing: '.09rem',
+            textTransform: 'uppercase'
+        },
+        small: {
+            fontSize: '.825rem',
+            fontWeight: 700,
+            textTransform: 'uppercase'
+        },
     }
 })
