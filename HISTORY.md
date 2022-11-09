@@ -59,9 +59,8 @@ Nenhuma das duas personas deve ser abandonada na implementação dessa interface
 
 ## A jornada do usuário
 ### Acessibilidade de Linguagem
-O "juridiquês" em ferramentas de consulta de processos jurídicos era mais que esperado. Apontando assim a primeira barreira de acessibilidade. Alguns termos aplicados na busca processual podem ser facilmente substituídos por expressões populares que não reduziria de forma significante seu sentido original. "Comarca", por exemplo, pode ser substituído por "Cidade", sem deixar aplicantes do direito perdidos com a definição. Com este foco, foram aplicadas algumas modificações pontuadas abaixo:
-- substituições dos termos na interface, em relação aos termos originais.
-- Implementação de tooltips para exibir o significado de termos de baixa popularidade que não podem ser substituídos.
+O "juridiquês" em ferramentas de consulta de processos jurídicos era mais que esperado. Apontando assim a primeira barreira de acessibilidade. Alguns termos aplicados na busca processual podem ser facilmente substituídos por expressões populares que não reduziria de forma significante seu sentido original. "Comarca", por exemplo, pode ser substituído por "Cidade", sem deixar aplicantes do direito perdidos com a definição. Com este foco, foram
+implementadas tooltips para exibir o significado de termos de baixa popularidade que não podem ser substituídos.
 
 ### Identificação dos processos
 Na jornada imaginada para o perfil em foco, uma das situações projetadas foi o acompanhamento de processos. Essa projeção deduziu a ansiedade do usuário por novas movimentações no processo, e a consequente reabertura contínua da página para realizar a mesma pesquisa de processo. A fim de atender a essas necessidades do usuário, foram implementados dois recursos: 
@@ -79,6 +78,11 @@ Nas minhas entrevistas, nota-se que é comum os advogados conhecerem uns aos out
 O método mais eficaz de se chegar a um processo é atraveś do código CNJ, descrito na primeira seção deste documento. Este código, contudo é consideravelmente longo para se manter registro. Além disso, com base nas minhas entrevistas, os advogados que realizam buscas processuais utilizando esse código já tem fixado parte desse código em suas ferramentas, considerando que raramente um advogado precisa fazer consulta fora de sua comarca, tribunal, vara e/ou foro. Para o usuário mais leigo, essa pesquisa por esse parâmetro é desestimulante, além de pouco conclusiva.
 
 Com este foco, tentei tornar a lógica de filtros mais usual possível, utilizando filtro pelos campos indicativos do código CNJ. Além disso, planejo que esses filtros, após determinadas utilizações fique salvo na sessão do usuário, a fim de que ele não precise repetir a escolha desses filtros repetidas vezes.
+
+### Notificações
+Outro fator recorrente citado nas entrevistas, foi a insistência dos clientes em perguntar por atualizações dos processos. Considerando que a minha ferramenta, em uma implementação real, teria conexão com as atualizações dos movimentos de cada processo, tive a ideia de criar um campo de assinatura de notificações para receber por e-mail quando um processo tiver nova movimentação.
+
+![Captura de tela do componente de previsão da próxima movimentação](./media/notificacao.png)
 
 ## A Interface
 No wireframe, imaginei o foco repartido na movimentação e nos detalhes 
