@@ -1,36 +1,13 @@
 import { Image, Flex } from "@chakra-ui/react";
 import Container from "../components/Container";
 import logo from "../assets/img/logo.svg"
-import RecentCards from "../components/RecentCards";
+import RecentCards from "../components/Recents";
 import SearchInput from "../components/SearchInput";
 import Results from "../components/Results";
 import { useSearch } from "../hooks/search";
 
-const recents = [
-  {
-    title: 'Jerri Adriane Rodrigues Costa x Eletrofacil - Comercio de Eletrodomésticos LTDA - EPP',
-    code: '3938007-10.2012.8.06.0167',
-    link: '/'
-  },
-  {
-    title: 'Jerri Adriane Rodrigues Costa x Eletrofacil - Comercio de Eletrodomésticos LTDA - EPP',
-    code: '3938007-10.2012.8.06.0167',
-    link: '/'
-  },
-  {
-    title: 'Jerri Adriane Rodrigues Costa x Eletrofacil - Comercio de Eletrodomésticos LTDA - EPP',
-    code: '3938007-10.2012.8.06.0167',
-    link: '/'
-  },
-  {
-    title: 'Jerri Adriane Rodrigues Costa x Eletrofacil - Comercio de Eletrodomésticos LTDA - EPP',
-    code: '3938007-10.2012.8.06.0167',
-    link: '/'
-  },
-]
-
 export default function Home() {
-  const { showResults, handleShowResults } = useSearch();
+  const { showResults, handleShowResults, results, recents } = useSearch();
 
   return (
     <Container>
@@ -47,8 +24,8 @@ export default function Home() {
         />
         <SearchInput />
         {showResults
-          ? <Results resultsList={recents} />
-          : <RecentCards cardList={recents} />
+          ? <Results />
+          : <RecentCards />
         }
       </Flex>
     </Container>
