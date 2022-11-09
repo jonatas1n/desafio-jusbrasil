@@ -1,33 +1,10 @@
-import { Box, Image, Stack, Flex, Text } from "@chakra-ui/react";
+import { Image, Flex } from "@chakra-ui/react";
 import Container from "../components/Container";
-import {Input} from "../components/Input";
 import logo from "../assets/img/logo.svg"
-import FilterSelect from "../components/FilterSelect";
-import { AiFillClockCircle } from "react-icons/ai";
-import Title from "../components/Title";
 import RecentCards from "../components/RecentCards";
-
-const comarcaOptions = [
-  {
-    value: 'sobral',
-    label: 'Sobral'
-  },
-  {
-    value: 'fortaleza',
-    label: 'Fortaleza'
-  }
-];
-
-const tribunalOptions = [
-  {
-    value: 'sobral',
-    label: 'Sobral'
-  },
-  {
-    value: 'fortaleza',
-    label: 'Fortaleza'
-  }
-];
+import SearchInput from "../components/SearchInput";
+import Results from "../components/Results";
+import { useSearch } from "../hooks/search";
 
 const recents = [
   {
@@ -53,6 +30,8 @@ const recents = [
 ]
 
 export default function Home() {
+  const { showResults, handleShowResults } = useSearch();
+
   return (
     <Container>
       <Flex
@@ -61,42 +40,16 @@ export default function Home() {
       >
         <Image
           src={logo.src}
-          boxSize='200px'
+          w='200px'
+          paddingBlock={showResults ? '25px' : '75px'}
           alt="Probusca"
+          onClick={handleShowResults}
         />
-        <Box
-          bgColor='white'
-          p='2rem'
-          mb='1.5rem'
-          borderRadius='.25rem'
-          className="Jonatas"
-          gap='1rem'
-        >
-          <Input
-            name='search'
-            type='text'
-            placeholder='Consultar processos'
-            mb='1.5rem'
-          />
-          <Flex
-            gap='1rem'
-            alignItems='center'
-            justifyItems='flex-start'
-          >
-            <Text textStyle='small' whiteSpace='nowrap'>filtrar por</Text>
-            <FilterSelect title='Comarca' options={comarcaOptions} />
-            <FilterSelect title='Tribunal' options={tribunalOptions} />
-          </Flex>
-        </Box>
-        <Flex
-          direction='column'
-          paddingInline='2rem'
-        >
-          <Title icon={AiFillClockCircle} title='Buscas recentes'/>
-          <Flex direction='column' gap='.5rem' mt='1.5rem'>
-            <RecentCards cardList={recents} />
-          </Flex>
-        </Flex>
+        <SearchInput />
+        {showResults
+          ? <Results resultsList={recents} />
+          : <RecentCards cardList={recents} />
+        }
       </Flex>
     </Container>
   )

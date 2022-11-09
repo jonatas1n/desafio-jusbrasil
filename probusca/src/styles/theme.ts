@@ -41,7 +41,7 @@ export const theme = extendTheme({
         overline: {
             fontSize: '14px',
             fontWeight: 400,
-            letterSpacing: '.09rem',
+            letterSpacing: '.1rem',
             textTransform: 'uppercase'
         },
         small: {
