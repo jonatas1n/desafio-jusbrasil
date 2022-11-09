@@ -14,6 +14,10 @@ interface SearchContextData {
     }>;
     showResults: boolean;
     handleShowResults: () => void;
+    getFilterOptions: (filterKey: string) => Array<{
+        value: string;
+        label: string;
+    }>;
 }
 
 const recentsList = [
@@ -77,13 +81,28 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
         setShowResults(!showResults);
     }, [showResults]);
 
+    const getFilterOptions = useCallback( (filterKey: string) => {
+        console.log(filterKey);
+        return [
+            {
+                value: 'sobral',
+                label: 'Sobral'
+            },
+            {
+                value: 'fortaleza',
+                label: 'Fortaleza'
+            }
+        ];
+    }, [])
+
     return (
         <SearchContext.Provider
             value={{
                 results,
                 recents,
                 showResults,
-                handleShowResults
+                handleShowResults,
+                getFilterOptions
             }}
         >
             {children}

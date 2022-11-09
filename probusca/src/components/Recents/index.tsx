@@ -1,7 +1,8 @@
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
-import { AiFillClockCircle } from "react-icons/ai";
+import { FaClock } from "react-icons/fa";
 import { useSearch } from "../../hooks/search";
 import Title from '../Title'
+import Card from "../Card";
 
 export default function Recents() {
     const { recents } = useSearch();
@@ -9,21 +10,22 @@ export default function Recents() {
     return (
         <Flex
             direction='column'
-            paddingInline='2rem'
+            padding='2rem'
+            mt='1.5rem'
             gap='1.5rem'
+            background='#dfdfdf'
+            borderRadius='.25rem'
         >
-            <Title icon={AiFillClockCircle} title='Buscas recentes'/>
+            <Title icon={FaClock} title='Acessos recentes'/>
             <Stack>
                 { recents.map( ({title, code, link}) => (
-                    <Box
-                        borderRadius='.25rem'
-                        backgroundColor='pallete.recentCard'
-                        padding='1.5rem'
+                    <Card
+                        recent
                         key={title}
                     >
                         <Text fontStyle='h3'>{title}</Text>
                         <Text fontStyle='overline'>{code}</Text>
-                    </Box>
+                    </Card>
                 )) }
             </Stack>
         </Flex>

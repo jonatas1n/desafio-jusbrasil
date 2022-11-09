@@ -13,9 +13,9 @@ export default function Title({position='left', icon, title}: TitleProps) {
             gap='.75rem'
             alignItems='center'
         >
-            {position == 'left' && <Icon as={icon} h='1.5rem' w='1.5rem'/>}
-            <Text textStyle='h3'>{title}</Text>
-            {position == 'right' && <Icon as={icon} h='1.5rem' w='1.5rem'/>}
+            {position == 'left' && <Icon color='pallete.darkGray' as={icon} h='1.5rem' w='1.5rem'/>}
+            <Text textStyle='h3' color='pallete.darkGray'>{title}</Text>
+            {position == 'right' && <Icon color='pallete.darkGray' as={icon} h='1.5rem' w='1.5rem'/>}
         </Flex>
     )
 }

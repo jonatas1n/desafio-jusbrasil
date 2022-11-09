@@ -1,28 +1,26 @@
 import Title from "../Title";
-import { AiOutlineSearch } from "react-icons/ai";
+import { FaSearch } from "react-icons/fa";
 import { Flex, Stack, Text, Box } from "@chakra-ui/react";
 import { useSearch } from "../../hooks/search";
+import Card from "../Card";
 
 export default function Results() {
     const { results } = useSearch();
 
     return (
-        <Flex direction='column' gap='1.5rem'>
-            <Title icon={AiOutlineSearch} title='Resultados' />
+        <Flex direction='column' gap='1.5rem' mt='1.5rem'>
+            <Title icon={FaSearch} title='Resultados' />
             <Stack spacing='1rem'>
                 {results.map(({title, code, vara}, index) => (
-                    <Box
-                        key={index}
-                        padding='2rem'
-                        backgroundColor='white'
-                        borderRadius='.25rem'
-                    >
-                        <Text textStyle='h3'>{title}</Text>
-                        <Flex>
-                            <Text textStyle='h4'>{code}</Text>
+                    <Card key={index}>
+                        <Text textStyle='h4'>{title}</Text>
+                        <Flex
+                            justifyContent='space-between'
+                        >
+                            <Text textStyle='overline'>{code}</Text>
                             <Text textStyle='h4'>{vara}</Text>
                         </Flex>
-                    </Box>
+                    </Card>
                 ))}
             </Stack>
         </Flex>

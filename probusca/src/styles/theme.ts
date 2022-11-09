@@ -33,6 +33,8 @@ export const theme = extendTheme({
         h4: {
             fontSize: '1.25rem',
             fontWeight: 600,
+            lineHeight: '23.44px'
+
         },
         h5: {
             fontSize: '1rem',
@@ -43,6 +45,10 @@ export const theme = extendTheme({
             fontWeight: 400,
             letterSpacing: '.1rem',
             textTransform: 'uppercase'
+        },
+        regular: {
+            fontSize: '1rem',
+            fontWeight: 400
         },
         small: {
             fontSize: '.825rem',

@@ -17,7 +17,7 @@ import {
     useState,
 } from "react";
 
-import { AiOutlineSearch } from "react-icons/ai";
+import { FaSearch } from "react-icons/fa";
 import { FieldError } from "react-hook-form";
 
 interface InputProps extends InputGroupProps {
@@ -96,7 +96,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({
                 right='1rem'
                 pointerEvents="none"
             >
-                <AiOutlineSearch fontSize='1.5rem' color={iconColor} />
+                <FaSearch fontSize='1.5rem' color={iconColor} />
             </InputRightElement>
         </InputGroup>
         {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
