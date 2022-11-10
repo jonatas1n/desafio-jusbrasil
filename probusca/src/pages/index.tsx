@@ -20,6 +20,7 @@ export default function Home() {
           w='200px'
           paddingBlock={showResults ? '25px' : '75px'}
           alt="Probusca"
+          marginInline={{md: 'auto', lg: 'unset'}}
           onClick={handleShowResults}
         />
         <SearchInput />

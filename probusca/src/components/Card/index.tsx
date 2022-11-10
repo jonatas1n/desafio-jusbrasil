@@ -1,13 +1,16 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Link } from "@chakra-ui/react";
 
 interface CardProps {
     children: any;
-    recent?: boolean
+    recent?: boolean;
+    link?: string;
 }
 
-export default function Card({children, recent=false}:CardProps) {
+export default function Card({children, recent=false, link}:CardProps) {
     return (
         <Box
+            as={!!link ? Link : Box}
+            href={link}
             borderRadius='.25rem'
             backgroundColor={recent ? 'pallete.recentCard' : 'white'}
             padding='1.5rem'
