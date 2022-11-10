@@ -1,4 +1,4 @@
-import { Flex, Stack, Text } from "@chakra-ui/react"
+import { Stack } from "@chakra-ui/react"
 import { FaLandmark, FaCalendar, FaBalanceScale, FaBuilding } from "react-icons/fa";
 import ListDataItem from "./ListDataItem";
 

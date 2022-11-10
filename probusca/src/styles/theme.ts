@@ -7,6 +7,8 @@ export const theme = extendTheme({
             "background": "#ECECEC",
             "darkGray": "#8D8D8D",
             "recentCard": "#F3F3F3",
+            "blue": "#388dc8",
+            'green': "#d5e1c9",
         }
     },
     fonts: {
@@ -34,7 +36,6 @@ export const theme = extendTheme({
             fontSize: '1.25rem',
             fontWeight: 600,
             lineHeight: '23.44px'
-
         },
         h5: {
             fontSize: '1rem',
