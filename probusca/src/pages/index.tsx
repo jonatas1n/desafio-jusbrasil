@@ -1,4 +1,4 @@
-import { Image, Flex, Fade, Slide } from "@chakra-ui/react";
+import { Image, Flex } from "@chakra-ui/react";
 import Container from "../components/Container";
 import logo from "../assets/img/logo.svg"
 import RecentCards from "../components/Recents";
