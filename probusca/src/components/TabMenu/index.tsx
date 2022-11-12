@@ -24,7 +24,7 @@ export default function TabMenu({state, setState}: TabMenuProps) {
     return (
         <Flex
             borderBottom='1px solid black'
-            mt='2rem'
+            marginBlock='2rem'
         >
             {menuItems.map( ({activeIcon, inactiveIcon, title}) => (
                 <Flex

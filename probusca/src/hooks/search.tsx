@@ -1,70 +1,18 @@
-import React, { useState, useCallback, createContext, useEffect, useContext } from 'react';
+import React, { useState, useCallback, createContext, useContext } from 'react';
+import { search } from '../services/api'
+import { ProcessProps } from '../shared/interfaces/Process.interface'
+import { formatDate, formatLawsuitID } from '../utils/textFormat';
 
 interface SearchContextData {
-    results: Array<{
-        title: string,
-        code: string;
-        link: string;
-        vara?: string;
-    }>;
-    recents: Array<{
-        title: string,
-        code: string;
-        link: string;
-    }>;
+    results: Array<ProcessProps>;
     showResults: boolean;
-    handleShowResults: () => void;
-    getFilterOptions: (filterKey: string) => Array<{
+    filters: Array<{
+        title: string;
         value: string;
-        label: string;
     }>;
+    handleShowResults: () => void;
+    handleSearch: (searchTerm: string) => void;
 }
-
-const recentsList = [
-    {
-        title: 'Jerri Adriane Rodrigues Costa x Eletrofacil - Comercio de Eletrodomésticos LTDA - EPP',
-        code: '3938007-10.2012.8.06.0167',
-        link: '/'
-    },
-    {
-        title: 'Jerri Adriane Rodrigues Costa x Eletrofacil - Comercio de Eletrodomésticos LTDA - EPP',
-        code: '3938007-10.2012.8.06.0167',
-        link: '/'
-    },
-    {
-        title: 'Jerri Adriane Rodrigues Costa x Eletrofacil - Comercio de Eletrodomésticos LTDA - EPP',
-        code: '3938007-10.2012.8.06.0167',
-        link: '/'
-    },
-    {
-        title: 'Jerri Adriane Rodrigues Costa x Eletrofacil - Comercio de Eletrodomésticos LTDA - EPP',
-        code: '3938007-10.2012.8.06.0167',
-        link: '/'
-    },
-]
-
-const resultsList = [
-    {
-        title: 'Jerri Adriane Rodrigues Costa x Eletrofacil - Comercio de Eletrodomésticos LTDA - EPP',
-        code: '3938007-10.2012.8.06.0167',
-        link: '/'
-    },
-    {
-        title: 'Jerri Adriane Rodrigues Costa x Eletrofacil - Comercio de Eletrodomésticos LTDA - EPP',
-        code: '3938007-10.2012.8.06.0167',
-        link: '/'
-    },
-    {
-        title: 'Jerri Adriane Rodrigues Costa x Eletrofacil - Comercio de Eletrodomésticos LTDA - EPP',
-        code: '3938007-10.2012.8.06.0167',
-        link: '/'
-    },
-    {
-        title: 'Jerri Adriane Rodrigues Costa x Eletrofacil - Comercio de Eletrodomésticos LTDA - EPP',
-        code: '3938007-10.2012.8.06.0167',
-        link: '/'
-    },
-]
 
 const SearchContext = createContext<SearchContextData>({} as SearchContextData);
 
@@ -74,35 +22,36 @@ type SearchProviderProps = {
 
 function SearchProvider({children}: SearchProviderProps ): JSX.Element {
     const [showResults, setShowResults] = useState(false);
-    const [results, setResults] = useState(resultsList);
-    const [recents, setRecents] = useState(recentsList);
+    const [results, setResults] = useState<ProcessProps[]>([]);
+    const [filters, setFilters] = useState([]);
+
+    const handleSearch = useCallback( async (searchTerm: string) => {
+        search(searchTerm)
+            .then(response => {
+                response = response.items;
+                response = response.map( (r:any) => {
+                    r.subject = r.subject.split('-');
+                    r.date = formatDate(r.date);
+                    r.lawsuitID = formatLawsuitID(r.lawsuitID);
+                    return r;
+                });
+                setResults(response);
+                setShowResults(true);
+            });
+    }, [])
 
     const handleShowResults = useCallback( () => {
         setShowResults(!showResults);
     }, [showResults]);
 
-    const getFilterOptions = useCallback( (filterKey: string) => {
-        console.log(filterKey);
-        return [
-            {
-                value: 'sobral',
-                label: 'Sobral'
-            },
-            {
-                value: 'fortaleza',
-                label: 'Fortaleza'
-            }
-        ];
-    }, [])
-
     return (
         <SearchContext.Provider
             value={{
                 results,
-                recents,
                 showResults,
                 handleShowResults,
-                getFilterOptions
+                handleSearch,
+                filters
             }}
         >
             {children}

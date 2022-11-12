@@ -1,37 +1,46 @@
-import { Stack } from "@chakra-ui/react"
-import { FaLandmark, FaCalendar, FaBalanceScale, FaBuilding } from "react-icons/fa";
+import { Icon, Stack, Flex, UnorderedList, Text, ListItem } from "@chakra-ui/react"
+import { FaLandmark, FaCalendarAlt, FaBalanceScale, FaBuilding, FaFileAlt } from "react-icons/fa";
+import { useProcess } from "../../hooks/process";
 import ListDataItem from "./ListDataItem";
 
-const data = {
-    tribunal: 'TJCE - Sobral, CE',
-    dataInicio: '12 de dezembro de 2012',
-    assunto: 'Contatos de Consumo / Consórcio',
-    orgaoJulgador: 'Juizado Especial Cível e Criminal da Comarca de Sobral'
-}
-
 export default function ListData() {
-    const {tribunal, dataInicio, assunto, orgaoJulgador} = data;
+    const { process, movement } = useProcess();
 
     return (
-        <Stack mt='2rem' spacing='3'>
+        <Stack spacing='3'>
             <ListDataItem
                 label='Tribunal de Origem'
-                value={tribunal}
+                value={process?.court}
                 icon={FaLandmark}
             />
             <ListDataItem
                 label='Início do Processo'
-                value={dataInicio}
-                icon={FaCalendar}
+                value={process?.date}
+                icon={FaCalendarAlt}
             />
-            <ListDataItem
-                label='Assunto'
-                value={assunto}
-                icon={FaBalanceScale}
-            />
+            {!!movement && <ListDataItem
+                label='Última movimentação'
+                value={movement[movement.length -1]?.data}
+                icon={FaFileAlt}
+            /> }
+            <Flex gap='1rem'>
+                <Icon as={FaBalanceScale} color='black' mt='.25rem'/>
+                <Flex direction='column'>
+                    <Text textStyle='h4' fontSize='1rem'>Assuntos</Text>
+                    <UnorderedList>
+                        {process?.subject?.map( (subject, index) => {
+                            subject = subject.trim();
+                            if(subject.at(-1) != ')') subject = subject + ')';
+                            return (
+                                <ListItem key={index} textTransform='capitalize'>{subject.toLowerCase()}</ListItem>
+                            )
+                        })}
+                    </UnorderedList>
+                </Flex>
+            </Flex>
             <ListDataItem
                 label='Órgão Julgador'
-                value={orgaoJulgador}
+                value={process?.judgeBody}
                 icon={FaBuilding}
             />
         </Stack>

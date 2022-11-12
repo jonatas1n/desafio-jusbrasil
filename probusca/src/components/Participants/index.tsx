@@ -1,46 +1,32 @@
-import { Flex } from '@chakra-ui/react';
-import { FaBalanceScaleLeft, FaBalanceScaleRight } from 'react-icons/fa';
+import { Stack } from '@chakra-ui/react';
+import { FaBalanceScaleLeft, FaBalanceScaleRight, FaCircle } from 'react-icons/fa';
 import ParticipantGroup from './ParticipantGroup';
-
-const lists = {
-    activeList: [
-        {
-            title: 'jerri adriane rodrigues costa',
-            type: 'Autor',
-            cpf: '028.064.983-50'
-        },
-        {
-            title: 'LUCAS EVANGELISTA DE SOUSA NETO',
-            type: 'Advogado',
-            cpf: '028.064.983-50',
-            oab: 'PI0009213A'
-        }
-    ],
-    passiveList: [
-        {
-            title: 'ELETROFACIL - COMERCIO DE ELETRODOMESTICOS LTDA - EPP',
-            cnpj: '05.988.869/0001-00',
-            type: 'Réu'
-        }
-    ]
-}
+import { useProcess } from '../../hooks/process';
 
 export default function Participants() {
-    const { activeList, passiveList } = lists;
+    const { active, passive, others } = useProcess();
 
     return (
-        <Flex
+        <Stack
             direction='column'
-            pt='1.5rem'
+            h='100%'
+            spacing='3rem'
         >
-            <ParticipantGroup
-                list={activeList}
+            { active.length && <ParticipantGroup
+                title='Polo ativo'
+                list={active}
                 icon={FaBalanceScaleLeft}
-            />
-            <ParticipantGroup
-                list={passiveList}
+            /> }
+            { passive.length && <ParticipantGroup
+                title='Polo passivo'
+                list={passive}
                 icon={FaBalanceScaleRight}
-            />
-        </Flex>
+            /> }
+            { others.length && <ParticipantGroup
+                title='Outros participantes'
+                list={others}
+                icon={FaCircle}
+            /> }
+        </Stack>
     )
 }

@@ -4,6 +4,9 @@ import logo from '../assets/img/logo.svg'
 import { FaArrowLeft } from "react-icons/fa";
 import DataCard from "../components/DataCard";
 import Movement from "../components/Movement";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useProcess } from "../hooks/process";
 
 export default function Process() {
     return (
@@ -11,7 +14,7 @@ export default function Process() {
             <SimpleGrid
                 columns={{lg: 2, md: 1}}
                 h='100vh'
-                spacing='2rem'
+                spacing='1rem'
                 overflow='hidden'
             >
                 <Flex
@@ -39,7 +42,6 @@ export default function Process() {
                 </Flex>
                 <Flex
                     as={Movement}
-                    w='unset'
                     flex={2}
                 />
             </SimpleGrid>

@@ -1,29 +1,34 @@
 import { Flex, Stack, Text, Icon } from '@chakra-ui/react';
 import { IconType } from 'react-icons';
-import { Company } from '../../../shared/interfaces/Company.interface';
-import { Attorney, Person } from '../../../shared/interfaces/Person.interface';
+import { ProcessParticipantProps } from '../../../shared/interfaces/Process.interface'
 
 interface ParticipantGroupProps {
-    list: Array<Person|Attorney|Company>;
+    title: string;
+    list: Array<ProcessParticipantProps>;
     icon: IconType;
 };
 
-export default function ParticipantGroup({list, icon}:ParticipantGroupProps) {
-    const orderShow = ['type', 'oab', 'cpf', 'cnpj'];
+export default function ParticipantGroup({list, icon, title}:ParticipantGroupProps) {
+    const orderShow = ['type', 'oab'];
 
     return (
-        <Flex gap='1rem' mb='3rem'>
+        <Flex gap='1rem'>
             <Icon mt='.25rem' as={icon} />
             <Stack>
-                <Text fontWeight={600} textStyle='h5'>Polo ativo</Text>
+                <Text fontWeight={600} textStyle='h5'>{title}</Text>
                 <Stack spacing={4}>
-                    { list.map( listItem => (
-                        <Flex key={listItem.title} direction='column' borderLeft='1px solid #ccc' paddingLeft='.5rem'>
-                            <Text textStyle='regular' textTransform='uppercase'>{listItem.title}</Text>
+                    { list.map( (listItem, index) => (
+                        <Flex
+                            key={index}
+                            direction='column'
+                            paddingLeft='.5rem'
+                        >
+                            <Text textStyle='regular' textTransform='uppercase'>{listItem.name}</Text>
                             <Flex gap='.5rem'>
-                                { orderShow
-                                    .filter(item => Object.keys(listItem).includes(item))
-                                    .map( (item: any) => (
+                                { Object.entries(listItem)
+                                    .sort((a, b) => orderShow.indexOf(a[0]) - orderShow.indexOf(b[0]))
+                                    .filter(item => item[1] && orderShow.includes(item[0]))
+                                    .map( ([key, item]) => (
                                         <Text
                                             key={item}
                                             borderRight='1px solid black'
@@ -31,7 +36,7 @@ export default function ParticipantGroup({list, icon}:ParticipantGroupProps) {
                                             _last={{borderRight: 'none', paddingRight: 0}}
                                             textStyle='h5'
                                         >
-                                            {listItem[item]}
+                                            {item}
                                         </Text>
                                     )
                                 )}
