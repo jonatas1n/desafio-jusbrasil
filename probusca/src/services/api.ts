@@ -2,7 +2,7 @@ import axios from 'axios';
 import { SearchFilterProps } from '../shared/interfaces/Search.interface';
 
 const api = axios.create({
-    baseURL: 'http://localhost:8000',
+    baseURL: 'http://localhost:7700',
 });
 
 export const search = (searchTerm: string, page: number = 1) => {

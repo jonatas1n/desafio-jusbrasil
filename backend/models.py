@@ -20,11 +20,3 @@ class PostRequest(BaseModel):
     court: str | None
     state: str | None
     jurisdiction: str | None
-
-class ParticipantResponse(BaseModel):
-    type: str | None
-    is_active: str | bool | None
-    name: str | None
-    OAB: str | None
-    text: str | None
-    id: str | None

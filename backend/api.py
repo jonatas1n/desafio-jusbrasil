@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from database import Database
 from fastapi_pagination import Page, add_pagination, paginate
-from models import SearchResult, PostRequest, ParticipantResponse
+from models import SearchResult, PostRequest
+import uvicorn
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -10,7 +11,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost",
-    "http://localhost:3000",
+    "http://localhost:7755",
 ]
 
 app.add_middleware(
@@ -71,3 +72,6 @@ async def get_filter_list(filter_key):
     return sorted(filter_options[filter_key]())
 
 add_pagination(app)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host='0.0.0.0', port=7700)
