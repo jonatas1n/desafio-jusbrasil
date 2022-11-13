@@ -1,6 +1,6 @@
 import { Image, Flex } from "@chakra-ui/react";
 import Container from "../components/Container";
-import logo from "../assets/img/logo.svg"
+import logo from "../assets/img/logo.png"
 import SearchInput from "../components/SearchInput";
 import Results from "../components/Results";
 import { useSearch } from "../hooks/search";

@@ -12,10 +12,12 @@ import { Flex,
 import { useCallback, useEffect, useState } from "react";
 import Button from '../Button'
 import { getFiltersList } from '../../services/api'
+import FilterSelectItem from './FilterSelectItem'
+import { SearchFilterTypes } from '../../shared/interfaces/Search.interface';
 
 interface FilterSelectProps {
     title: string;
-    filterKey: string;
+    filterKey: SearchFilterTypes;
 }
 
 export default function FilterSelect({title, filterKey}:FilterSelectProps) {
@@ -61,16 +63,14 @@ export default function FilterSelect({title, filterKey}:FilterSelectProps) {
                         >
                             { options && searchedOptions
                                 .map((option, index) => (
-                                <Box
-                                    key={index}
-                                    borderBottom='2px solid black'
-                                    _hover={{background: "#DDD", cursor: 'pointer'}}
-                                    _last={{borderBottom: '0'}}
-                                    p='.5rem'
-                                >
-                                    <Text>{option}</Text>
-                                </Box>
-                            )) }
+                                    <FilterSelectItem
+                                        key={index}
+                                        closeModal={toggleModal}
+                                        filterKey={filterKey}
+                                        option={option}
+                                    />
+                                ))
+                            }
                         </Flex>
                     </ModalBody>
                 </ModalContent>

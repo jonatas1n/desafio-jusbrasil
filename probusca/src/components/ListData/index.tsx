@@ -1,5 +1,6 @@
 import { Icon, Stack, Flex, UnorderedList, Text, ListItem } from "@chakra-ui/react"
 import { FaLandmark, FaCalendarAlt, FaBalanceScale, FaBuilding, FaFileAlt } from "react-icons/fa";
+import { TiLocation } from "react-icons/ti";
 import { useProcess } from "../../hooks/process";
 import ListDataItem from "./ListDataItem";
 
@@ -12,6 +13,11 @@ export default function ListData() {
                 label='Tribunal de Origem'
                 value={process?.court}
                 icon={FaLandmark}
+            />
+            <ListDataItem
+                label='Comarca'
+                value={process?.jurisdiction}
+                icon={TiLocation}
             />
             <ListDataItem
                 label='Início do Processo'

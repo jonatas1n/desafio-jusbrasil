@@ -1,12 +1,9 @@
 import { Flex, SimpleGrid, Image, Link } from "@chakra-ui/react";
 import Container from "../components/Container";
-import logo from '../assets/img/logo.svg'
+import logo from '../assets/img/logo.png'
 import { FaArrowLeft } from "react-icons/fa";
 import DataCard from "../components/DataCard";
 import Movement from "../components/Movement";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useProcess } from "../hooks/process";
 
 export default function Process() {
     return (

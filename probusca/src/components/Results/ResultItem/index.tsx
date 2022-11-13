@@ -1,32 +1,34 @@
 import { Text, Flex, UnorderedList, ListItem, Stack, useDisclosure, Collapse } from '@chakra-ui/react';
 import Card from '../../Card';
-import { FaNewspaper, FaLandmark, FaCalendar } from 'react-icons/fa';
-import { useState } from 'react';
+import { FaNewspaper, FaCalendar, FaLandmark } from 'react-icons/fa';
+import { TiLocation } from 'react-icons/ti'
+import { useCallback, useState } from 'react';
 
 interface ResultItemProps {
     lawsuitID: string;
     subject: string[];
     jurisdiction: string;
+    court: string;
     date: string;
 }
 
-export default function ResultItem({lawsuitID, subject, jurisdiction, date}: ResultItemProps) {
+export default function ResultItem({lawsuitID, subject, jurisdiction, court, date}: ResultItemProps) {
     const [showSubjects, setShowSubjects] = useState(false);
     const { isOpen, onToggle } = useDisclosure();
     const subjects = subject.filter(item => item.length > 0);
     const link = lawsuitID.replaceAll('.','').replace('-', '');
 
-    const setSubjectsVisible = () => {
+    const setSubjectsVisible = useCallback(() => {
         if (subjects.length == 0 || showSubjects) return;
         setShowSubjects(true);
         onToggle();
-    };
+    }, [onToggle, showSubjects, subjects]);
 
-    const setSubjectsInvisible = () => {
+    const setSubjectsInvisible = useCallback(() => {
         if(!showSubjects) return;
         setShowSubjects(false);
         onToggle();
-    }
+    }, [onToggle, showSubjects])
 
     return (
         <Card
@@ -55,6 +57,10 @@ export default function ResultItem({lawsuitID, subject, jurisdiction, date}: Res
                 <Flex alignItems='center' gap='2rem'>
                     <Flex gap='.5rem' alignItems='center'>
                         <FaLandmark />
+                        <Text textStyle='h5'>{court}</Text>
+                    </Flex>
+                    <Flex gap='.5rem' alignItems='center'>
+                        <TiLocation size='1.25rem'/>
                         <Text textStyle='h5'>{jurisdiction}</Text>
                     </Flex>
                     <Flex gap='.5rem' alignItems='center'>

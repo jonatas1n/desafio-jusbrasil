@@ -16,15 +16,15 @@ export default function BellButton() {
                 duration: 6000,
                 isClosable: true
             });
-        } else {
-            toast({
-                title: "Notificações Desativadas",
-                description: "Você não será mais notificado com novas movimentações.",
-                status: 'success',
-                duration: 4000,
-                isClosable: true
-            });
-        }
+            return
+        } 
+        toast({
+            title: "Notificações Desativadas",
+            description: "Você não será mais notificado com novas movimentações.",
+            status: 'success',
+            duration: 4000,
+            isClosable: true
+        });
     }, [notificationOn, toast]);
 
     return (

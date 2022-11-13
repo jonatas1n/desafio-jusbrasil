@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Flex, Box, Text } from "@chakra-ui/react";
 import TabMenu from "../TabMenu";
 import ListData from "../ListData";
@@ -10,7 +10,6 @@ import ReactLoading from 'react-loading';
 
 export default function DataCard() {
     const [selectedMenu, setSelectedMenu] = useState('Sobre');
-
     const router = useRouter();
     const { handleProcess, process } = useProcess();
 
@@ -20,7 +19,7 @@ export default function DataCard() {
         handleProcess(processID.toString());
     }, [handleProcess, router.query])
     
-    const handleMenu = (item: string) => setSelectedMenu(item);
+    const handleMenu = useCallback((item: string) => setSelectedMenu(item), []);
 
     if (!process) {
         return (
@@ -43,7 +42,7 @@ export default function DataCard() {
             maxHeight='80vh'
         >
             <Flex direction='column' justifyContent='space-between' alignItems='flex-start' gap='1rem'>
-                <Text textAlign='left' textStyle='h3'>Processo { process?.lawsuitID }</Text>
+                <Text textAlign='left' fontWeight={500} textStyle='h2'>Processo { process?.lawsuitID }</Text>
                 <BellButton />
             </Flex>
             <TabMenu

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { SearchFilterProps } from '../shared/interfaces/Search.interface';
 
 const api = axios.create({
     baseURL: 'http://localhost:8000',
@@ -7,6 +8,14 @@ const api = axios.create({
 export const search = (searchTerm: string, size: number = 30) => {
     const response = api.get('', { params: { search: searchTerm, size: size } })
         .then(response => response.data);
+    return response;
+}
+
+export const filteredSearch = (searchTerm: string, filters: SearchFilterProps[]) => {
+    let filtersEntries = filters.map(filter => Object.values(filter));
+    filtersEntries.push(['search', searchTerm]);
+    const response = api.post('', Object.fromEntries(filtersEntries))
+        .then( response => response.data );
     return response;
 }
 

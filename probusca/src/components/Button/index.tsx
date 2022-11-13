@@ -2,15 +2,16 @@ import { Button as Btn } from "@chakra-ui/react";
 
 interface ButtonProps {
     children: any;
+    background?: string;
     onClick?: () => void;
 }
 
-export default function Button({children, onClick}:ButtonProps) {
+export default function Button({children, onClick, background='white'}:ButtonProps) {
     return (
         <Btn
-            p='.5rem'
+            background={background}
+            p='.75rem 1rem'
             border='2px solid black'
-            background='white'
             _hover={{background: '#D8D8D8', cursor: 'pointer'}}
             borderRadius='5rem'
             onClick={onClick}

@@ -1,13 +1,14 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useSearch } from "../../hooks/search";
 import FilterSelect from "../FilterSelect"
 import { Input } from "../Input"
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import Filtered from "../Filtered";
 
 export default function SearchInput() {
-    const { handleSearch} = useSearch();
+    const { handleSearch, filters } = useSearch();
     const {register, handleSubmit} = useForm();
     const router = useRouter();
     let search = router.query['search'];
@@ -17,8 +18,7 @@ export default function SearchInput() {
         handleSearch(search);
     }, [handleSearch])
 
-    if (search)
-        handleSearchSubmit({search: search});
+    if (search) handleSearchSubmit({search: search});
 
     return (
         <Box
@@ -35,6 +35,13 @@ export default function SearchInput() {
                     mb='1.5rem'
                     {...register("search")}
                 />
+                { !!filters && (
+                    <Flex pb='1rem' flexWrap='wrap' gap='1rem'>
+                        {filters.map( ({keyFilter, value}, index) => (
+                            <Filtered key={index} keyFilter={keyFilter} value={value} />
+                        ) )}
+                    </Flex> 
+                )}
                 <Flex
                     gap='1rem'
                     alignItems='center'
