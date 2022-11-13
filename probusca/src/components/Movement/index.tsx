@@ -2,17 +2,12 @@ import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeli
 import 'react-vertical-timeline-component/style.min.css';
 
 import { ProcessMovementProps } from '../../shared/interfaces/Process.interface';
-import { FaCircle, FaStopwatch } from 'react-icons/fa'
-import { Flex, Text, Box, SlideFade } from '@chakra-ui/react';
-import { useState } from 'react';
+import { FaCircle } from 'react-icons/fa'
+import { Flex, Text, Box } from '@chakra-ui/react';
 import { useProcess } from '../../hooks/process';
 
 export default function Movement() {
     const { movement } = useProcess();
-    const [showPrevision, setShowPrevision] = useState(false);
-    const handleShowPrevision = (state=!showPrevision) => {
-        setShowPrevision(state);
-    }
 
     return (
         <Flex direction='column' overflowY={{lg: 'auto', md: 'auto', sm: 'unset'}} h={{lg: '100%', md: '100%', sm: 'unset'}}>
@@ -27,25 +22,6 @@ export default function Movement() {
                 <Text textStyle='h2'>Sem novas movimentações.</Text>
             </Box>
             <VerticalTimeline layout='1-column-left' lineColor="#D9D9D9">
-                { showPrevision && (
-                    <SlideFade offsetY='2rem' in={showPrevision}>
-                        <Flex
-                            textAlign='right'
-                            justifyContent='flex-end'
-                        >
-                            <Flex
-                                p='1rem'
-                                borderRadius='.5rem'
-                                background='pallete.green'
-                                gap='.5rem'
-                                alignItems='center'
-                            >
-                                <Text textStyle='h2'>Movimentação</Text>
-                                <FaStopwatch size='1.75rem' color='#494949'/>
-                            </Flex>
-                        </Flex>
-                    </SlideFade>
-                )}
                 { movement.map( (move:ProcessMovementProps, index:number) => (
                     <VerticalTimelineElement
                         key={index}
