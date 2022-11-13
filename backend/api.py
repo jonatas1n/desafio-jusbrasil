@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from database import Database
 from fastapi_pagination import Page, add_pagination, paginate
-from models import SearchResult, PostRequest
+from models import SearchResponse, PostRequest, MovementResponse, FiltersRequest
 import uvicorn
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -29,14 +29,14 @@ async def process(code:str):
         return
     return process
 
-@app.get("/", response_model=Page[SearchResult])
+@app.get("/", response_model=Page[SearchResponse])
 async def search(search:str|None=None):
     if search is None:
         return
     results = database.search(search)
     return paginate(results)
 
-@app.post("/",  response_model=Page[SearchResult])
+@app.post("/",  response_model=Page[SearchResponse])
 async def filtered_search(filters: PostRequest,):
     filters = [tuple(filter) for filter in filters if filter[1] is not None]
     filters = dict(filters)
@@ -53,23 +53,17 @@ async def get_participants(code:str, type:str='active'):
     participants = type_functions[type](code)
     return participants
 
-@app.get('/movement/{code}')
+@app.get('/movement/{code}', response_model=Page[MovementResponse])
 async def get_movement(code: str):
-    movement = database.get_movement(code)
-    return movement
+    result = database.get_movement(code)
+    return paginate(result)
 
-@app.get('/filters/{filter_key}')
-async def get_filter_list(filter_key):
-    filter_options = {
-        'court': database.get_court_list,
-        'judgeBody': database.get_judge_body_list,
-        'judgeClass': database.get_judge_class_list,
-        'jurisdiction': database.get_jurisdiction_list,
-        'state': database.get_states_list,
-    }
-    if filter_key not in filter_options:
-        return []
-    return sorted(filter_options[filter_key]())
+@app.post('/filters/')
+async def get_filter_list(filters: FiltersRequest):
+    filters = [tuple(filter) for filter in filters if filter[1] is not None]
+    filters = dict(filters)
+    results = database.get_filters_list(**filters)
+    return results
 
 add_pagination(app)
 

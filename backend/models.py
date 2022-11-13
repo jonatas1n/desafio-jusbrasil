@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class SearchResult(BaseModel):
+class SearchResponse(BaseModel):
     subject: str | None
     date: str | None
     lawsuitID: str | None
@@ -19,4 +19,14 @@ class PostRequest(BaseModel):
     participant: str | None
     court: str | None
     state: str | None
+    jurisdiction: str | None
+
+class MovementResponse(BaseModel):
+    data: str
+    content: str
+
+class FiltersRequest(BaseModel):
+    court: str | None
+    judgeClass: str | None
+    judgeBody: str | None
     jurisdiction: str | None

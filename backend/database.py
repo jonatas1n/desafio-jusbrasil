@@ -26,22 +26,6 @@ class Database:
         with open('./data/otherInterested.json') as file:
             self.other_list = json.load(file)
 
-        with open('./data/court.json') as file:
-            self.court_list = json.load(file)
-
-        with open('./data/judgeBody.json') as file:
-            self.judgeBody_list = json.load(file)
-
-        with open('./data/judgeClass.json') as file:
-            self.judgeClass_list = json.load(file)
-
-        with open('./data/jurisdiction.json') as file:
-            self.jurisdiction_list = json.load(file)
-
-        with open('./data/states.json') as file:
-            self.states_list = json.load(file)
-            self.states_list = [state for state in self.states_list if state]
-
     def __convert_keys(self, participant_item):
         replace_keys = {
             'tipo_participante': 'type',
@@ -83,20 +67,19 @@ class Database:
             return []
         return movement
 
-    def get_court_list(self):
-        return self.court_list
-
-    def get_judge_class_list(self):
-        return self.judgeClass_list
-
-    def get_judge_body_list(self):
-        return self.judgeBody_list
-
-    def get_jurisdiction_list(self):
-        return self.jurisdiction_list
-
-    def get_states_list(self):
-        return self.states_list
+    def get_filters_list(self, **kwargs):
+        data = self.database
+        filters_list = ['court', 'jurisdiction', 'judgeBody', 'judgeClass']
+        for key, value in kwargs.items():
+            if key not in filters_list:
+                continue
+            data = data[data[key] == value]
+        results = {}
+        for filter in filters_list:
+            filter_values = list(data[filter].values)
+            filter_values = list(dict.fromkeys(filter_values).keys())
+            results[filter] = sorted(filter_values)
+        return results
 
     def search(self, argument):
         data = self.database
