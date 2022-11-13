@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { SearchFilterProps } from '../shared/interfaces/Search.interface';
+import { useSearch } from '../hooks/search'
 
 const api = axios.create({
     baseURL: 'http://localhost:7700',
@@ -58,8 +59,9 @@ export const getMovement = (processID: string) => {
     return response;
 }
 
-export const getFiltersList = (filterKey: string) => {
-    const response = api.get('/filters/' + filterKey)
-        .then( response => response.data );
+export const getFiltersList = (filters: SearchFilterProps[]) => {
+    const filtersEntries = filters.map(filter => Object.values(filter));
+    const response = api.post('/filters/', Object.fromEntries(filtersEntries))
+        .then( response => response.data);
     return response;
 }

@@ -3,4 +3,11 @@ export interface SearchFilterProps {
     value: string;
 }
 
-export type SearchFilterTypes = 'court' | 'jurisdiction' | 'judgeBody' | 'judgeClass' | 'state';
+export type SearchFilterTypes = 'court' | 'jurisdiction' | 'judgeBody' | 'judgeClass';
+
+export interface SearchFiltersOptions {
+    court: string[];
+    jurisdiction: string[];
+    judgeBody: string[];
+    judgeClass: string[];
+}

@@ -1,21 +1,23 @@
-import React, { useState, useCallback, createContext, useContext, SetStateAction, Dispatch } from 'react';
-import { search, filteredSearch } from '../services/api'
+import React, { useState, useCallback, createContext, useContext, SetStateAction, Dispatch, useEffect } from 'react';
+import { search, filteredSearch, getFiltersList } from '../services/api'
 import { ProcessProps } from '../shared/interfaces/Process.interface'
 import { formatDate, formatLawsuitID } from '../utils/textFormat';
-import { SearchFilterProps, SearchFilterTypes } from '../shared/interfaces/Search.interface';
-import { useRouter } from "next/router";
+import { SearchFilterProps, SearchFiltersOptions, SearchFilterTypes } from '../shared/interfaces/Search.interface';
 
 interface SearchContextData {
     results: Array<ProcessProps>;
     showResults: boolean;
     filters: SearchFilterProps[];
+    filtersOptions: SearchFiltersOptions|undefined;
     totalResults: number;
     setFilters: Dispatch<SetStateAction<SearchFilterProps[]>>;
     handleSearch: (searchTerm: string) => void;
     addFilter: (filterKey: SearchFilterTypes, filterValue: string) => void;
     removeFilter: (filterKey: string) => void;
+    getFilterOptions: (filterKey: SearchFilterTypes) => string[];
     moreResults: () => void;
     cleanResults: () => void;
+    handleFilterOptions: () => void;
 }
 
 const SearchContext = createContext<SearchContextData>({} as SearchContextData);
@@ -28,22 +30,36 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
     const [showResults, setShowResults] = useState(false);
     const [results, setResults] = useState<ProcessProps[]>([]);
     const [filters, setFilters] = useState<SearchFilterProps[]>([]);
+    const [filtersOptions, setFiltersOptions] = useState<SearchFiltersOptions|undefined>(undefined);
+
     const [totalResults, setTotalResults] = useState(0);
     const [actualPage, setActualPage] = useState(1);
     const [lastSearch, setLastSearch] = useState('');
 
-    const addFilter = (filterKey: SearchFilterTypes, filterValue: string) => {
+    const handleFilterOptions = useCallback(() => {
+        getFiltersList(filters)
+            .then(data => setFiltersOptions(data));
+    }, [filters]);
+
+    const addFilter = useCallback( (filterKey: SearchFilterTypes, filterValue: string) => {
         let newFilters = filters.filter( ({keyFilter, value}) => keyFilter != filterKey );
         let newItem:SearchFilterProps = {keyFilter: filterKey, value: filterValue};
         newFilters.push(newItem);
         setFilters(newFilters);
-    }
+        handleFilterOptions();
+    }, [filters, handleFilterOptions]);
 
-    const removeFilter = (filterKey: string) => {
+    const removeFilter = useCallback((filterKey: string) => {
         let newFilters = filters.filter( ({keyFilter, value}) => keyFilter != filterKey );
         setFilters(newFilters);
-    }
+        handleFilterOptions();
+    }, [filters, handleFilterOptions]);
     
+    const getFilterOptions = useCallback((filterKey: SearchFilterTypes) => {
+        if(!filtersOptions) return [];
+        return filtersOptions[filterKey];
+    }, [filtersOptions]);
+
     const handleSearch = useCallback( async (searchTerm: string) => {
         setLastSearch(searchTerm);
         if(filters.length) {
@@ -76,7 +92,9 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
                 setResults([...results, ...response]);
                 setShowResults(true);
             });
-        }, [actualPage, filters, results])
+
+            handleFilterOptions();
+        }, [actualPage, filters, handleFilterOptions, results])
         
     const moreResults = useCallback( () => {
         if(totalResults <= results.length) return;
@@ -90,6 +108,10 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
         setTotalResults(0);
     }, []);
 
+    useEffect( () => {
+        handleFilterOptions();
+    }, [filters, handleFilterOptions] )
+
     return (
         <SearchContext.Provider
             value={{
@@ -98,11 +120,14 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
                 totalResults,
                 handleSearch,
                 filters,
+                filtersOptions,
                 setFilters,
                 addFilter,
                 removeFilter,
+                getFilterOptions,
                 moreResults,
                 cleanResults,
+                handleFilterOptions
             }}
         >
             {children}

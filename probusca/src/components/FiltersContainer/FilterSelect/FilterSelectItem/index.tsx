@@ -1,7 +1,7 @@
 import { Box, Text } from '@chakra-ui/react';
 import { useCallback } from 'react';
-import { useSearch } from '../../../hooks/search'
-import { SearchFilterTypes } from '../../../shared/interfaces/Search.interface'
+import { useSearch } from '../../../../hooks/search'
+import { SearchFilterTypes } from '../../../../shared/interfaces/Search.interface'
 
 interface FilterSelectItemProps {
     filterKey: SearchFilterTypes;

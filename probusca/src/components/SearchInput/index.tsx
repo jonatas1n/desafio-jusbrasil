@@ -1,11 +1,11 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useSearch } from "../../hooks/search";
-import FilterSelect from "../FilterSelect"
 import { Input } from "../Input"
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import Filtered from "../Filtered";
+import FiltersContainer from "../FiltersContainer";
 
 export default function SearchInput() {
     const { handleSearch, filters, cleanResults } = useSearch();
@@ -43,19 +43,7 @@ export default function SearchInput() {
                         ) )}
                     </Flex> 
                 )}
-                <Flex
-                    gap='.5rem'
-                    alignItems='center'
-                    justifyItems='flex-start'
-                    flexWrap='wrap'
-                >
-                    <Text textStyle='small' whiteSpace='nowrap'>filtrar por:</Text>
-                    <FilterSelect title='Tribunal' filterKey='court' />
-                    <FilterSelect title='Classe Judicial' filterKey='judgeClass' />
-                    <FilterSelect title='Vara' filterKey='judgeBody' />
-                    <FilterSelect title='Comarca' filterKey='jurisdiction' />
-                    <FilterSelect title='Estado' filterKey='state' />
-                </Flex>
+                <FiltersContainer />
             </form>
         </Box>
     )

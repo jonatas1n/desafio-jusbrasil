@@ -6,14 +6,13 @@ import { Flex,
     ModalHeader,
     ModalBody,
     ModalCloseButton,
-    Box,
     Input
 } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
-import Button from '../Button'
-import { getFiltersList } from '../../services/api'
+import Button from '../../Button'
 import FilterSelectItem from './FilterSelectItem'
-import { SearchFilterTypes } from '../../shared/interfaces/Search.interface';
+import { SearchFilterTypes } from '../../../shared/interfaces/Search.interface';
+import { useSearch } from "../../../hooks/search";
 
 interface FilterSelectProps {
     title: string;
@@ -21,8 +20,9 @@ interface FilterSelectProps {
 }
 
 export default function FilterSelect({title, filterKey}:FilterSelectProps) {
+    const { getFilterOptions, handleFilterOptions } = useSearch()
     const [modalStatus, setModalStatus] = useState(false);
-    const [options, setOptions] = useState([]);
+    const [options, setOptions] = useState<string[]>(getFilterOptions(filterKey));
     const [searchTerm, setSearchTerm] = useState('');
     
     const toggleModal = useCallback(() => {
@@ -30,9 +30,8 @@ export default function FilterSelect({title, filterKey}:FilterSelectProps) {
     }, [modalStatus]);
 
     useEffect( () => {
-        getFiltersList(filterKey)
-            .then( data => setOptions(data) )
-    }, [filterKey]);
+        setOptions(getFilterOptions(filterKey));
+    }, [filterKey, getFilterOptions, handleFilterOptions]);
 
     let searchedOptions = options?.filter((option:string) => {
         option = option.toLowerCase();
@@ -47,13 +46,23 @@ export default function FilterSelect({title, filterKey}:FilterSelectProps) {
                     <ModalHeader>{title}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Input
-                            name={'field-search-' + title}
-                            type='text'
-                            placeholder="Busca"
-                            mb='1rem'
-                            onChange={e => setSearchTerm(e.target.value)}
-                        />
+                        {options?.length ? (
+                            <Input
+                                name={'field-search-' + title}
+                                type='text'
+                                placeholder="Busca"
+                                mb='1rem'
+                                onChange={e => setSearchTerm(e.target.value)}
+                            />
+                        ) : (
+                            <Text
+                                textStyle='h5'
+                                textAlign='center'
+                                mb='2rem'
+                            >
+                                Erro ao coletar filtros
+                            </Text>
+                        )}
                         <Flex
                             direction='column'
                             h='100%'
