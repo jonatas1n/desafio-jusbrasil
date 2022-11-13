@@ -1,8 +1,8 @@
-all:
-	cd probusca && npm run dev && cd ../backend && uvicorn api:app
+up:
+	docker-compose up
 
-dev:
-	cd probusca && npm run dev
+attach:
+	docker exec -it probusca_server bash
 
-api:
-	cd backend && uvicorn api:app
+attach_api:
+	docker exec -it probusca_api bash

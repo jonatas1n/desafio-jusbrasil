@@ -1,0 +1,27 @@
+version: '2'
+services:
+  probusca_server:
+    environment:
+      - PYTHONUNBUFFERED=1
+    build:
+      context: ./probusca
+    ports: 
+      - "7755:3000"
+    volumes:
+      - ./probusca:/probusca
+    container_name: probusca_server
+    depends_on:
+      - probusca_api
+    entrypoint: ["npm", "run", "dev"]
+
+  probusca_api:
+    expose:
+      - "7700"
+    volumes:
+      - ./backend:/backend
+    container_name: probusca_api
+    build:
+      context: ./backend
+    ports:
+      - "7700:7700"
+

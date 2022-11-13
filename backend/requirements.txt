@@ -1,0 +1,5 @@
+pandas
+fastapi
+fastapi_pagination
+pydantic
+uvicorn
