@@ -76,7 +76,7 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
                 setResults([...results, ...response]);
                 setShowResults(true);
             });
-        }, [actualPage, filters, results, totalResults])
+        }, [actualPage, filters, results])
         
     const moreResults = useCallback( () => {
         if(totalResults <= results.length) return;
