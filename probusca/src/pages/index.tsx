@@ -6,27 +6,26 @@ import Results from "../components/Results";
 import { useSearch } from "../hooks/search";
 
 export default function Home() {
-  const { showResults, handleShowResults } = useSearch();
+  const { results } = useSearch();
 
   return (
     <Container>
       <Flex
         direction='column'
-        justifyContent={showResults ? 'unset' : 'center'}
+        justifyContent={results.length ? 'unset' : 'center'}
         h='100vh'
         w='100%'
       >
         <Image
           src={logo.src}
           w='200px'
-          paddingBottom={showResults ? '1.5rem' : '4.5rem'}
+          paddingBottom={results.length ? '1.5rem' : '4.5rem'}
           alt="Probusca"
           marginInline={{sm: 'auto', md: 'auto', lg: 'unset'}}
-          onClick={handleShowResults}
-          marginTop={showResults ? '1.5rem' : '-8rem'}
+          marginTop={results.length ? '1.5rem' : '-8rem'}
         />
         <SearchInput />
-        {!!showResults && <Results />}
+        {results.length ? <Results /> : null}
       </Flex>
     </Container>
   )

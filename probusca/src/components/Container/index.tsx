@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 
 interface ContainerProps {
-    children: any;
+    children: React.ReactNode;
     wide?: boolean;
     h?: string;
 }

@@ -40,7 +40,7 @@ export const theme = extendTheme({
         },
         h5: {
             fontSize: '1rem',
-            fontWeight: 500,
+            fontWeight: 400,
         },
         overline: {
             fontSize: '14px',

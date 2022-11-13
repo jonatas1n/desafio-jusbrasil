@@ -38,6 +38,10 @@ class Database:
         with open('./data/jurisdiction.json') as file:
             self.jurisdiction_list = json.load(file)
 
+        with open('./data/states.json') as file:
+            self.states_list = json.load(file)
+            self.states_list = [state for state in self.states_list if state]
+
     def __convert_keys(self, participant_item):
         replace_keys = {
             'tipo_participante': 'type',
@@ -90,6 +94,9 @@ class Database:
 
     def get_jurisdiction_list(self):
         return self.jurisdiction_list
+
+    def get_states_list(self):
+        return self.states_list
 
     def search(self, argument):
         data = self.database

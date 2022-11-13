@@ -1,7 +1,7 @@
 import { Button as Btn } from "@chakra-ui/react";
 
 interface ButtonProps {
-    children: any;
+    children: React.ReactNode;
     background?: string;
     onClick?: () => void;
 }

@@ -82,6 +82,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({
             placeholder={placeholder}
             padding='1.875rem'
             backgroundColor='white'
+            fontSize='1.5rem'
             _placeholder={{ color: "gray.400", fontWeight: 300, fontSize: '1.5rem' }}
             _hover={{
                 bgColor: "pallete.sidebarBackground",

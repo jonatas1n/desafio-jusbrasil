@@ -5,15 +5,16 @@ const api = axios.create({
     baseURL: 'http://localhost:8000',
 });
 
-export const search = (searchTerm: string, size: number = 30) => {
-    const response = api.get('', { params: { search: searchTerm, size: size } })
+export const search = (searchTerm: string, page: number = 1) => {
+    const response = api.get('', { params: { search: searchTerm, size: 30, page: page} })
         .then(response => response.data);
     return response;
 }
 
-export const filteredSearch = (searchTerm: string, filters: SearchFilterProps[]) => {
+export const filteredSearch = (searchTerm: string, filters: SearchFilterProps[], actualPage: number=1) => {
     let filtersEntries = filters.map(filter => Object.values(filter));
     filtersEntries.push(['search', searchTerm]);
+    filtersEntries.push(['page', actualPage]);
     const response = api.post('', Object.fromEntries(filtersEntries))
         .then( response => response.data );
     return response;

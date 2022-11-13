@@ -3,9 +3,10 @@ import { FaSearch } from "react-icons/fa";
 import { Flex, Stack, Text } from "@chakra-ui/react";
 import { useSearch } from "../../hooks/search";
 import ResultItem from "./ResultItem";
+import Button from "../Button";
 
 export default function Results() {
-    const { results } = useSearch();
+    const { results, totalResults, moreResults } = useSearch();
 
     if(results.length == 0) {
         return (
@@ -33,7 +34,13 @@ export default function Results() {
                     />
                 )) }
             </Stack>
-            <Text textAlign='center' textStyle='h2'>Sem mais resultados.</Text>
+            {results.length < totalResults ? (
+                <Flex justifyContent='center'>
+                    <Button onClick={moreResults}> Mais resultados </Button>
+                </Flex>
+            ) : (
+                <Text textAlign='center' textStyle='h2'>Sem mais resultados.</Text>
+            )}
         </Flex>
     )
 }

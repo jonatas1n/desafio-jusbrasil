@@ -1,7 +1,7 @@
 import { Box, Link } from "@chakra-ui/react";
 
 interface CardProps {
-    children: any;
+    children: React.ReactNode;
     recent?: boolean;
     link?: string;
     onMouseEnter?: () => void;

@@ -12,7 +12,7 @@ export default function Process() {
                 columns={{lg: 2, md: 1}}
                 h='100vh'
                 spacing='1rem'
-                overflow='hidden'
+                overflow={{lg: 'hidden', md: 'hidden', sm: 'auto'}}
             >
                 <Flex
                     direction='column'

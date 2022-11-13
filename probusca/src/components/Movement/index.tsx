@@ -15,7 +15,7 @@ export default function Movement() {
     }
 
     return (
-        <Flex direction='column' overflowY='auto' h='100%'>
+        <Flex direction='column' overflowY={{lg: 'auto', md: 'auto', sm: 'unset'}} h={{lg: '100%', md: '100%', sm: 'unset'}}>
             <Box
                 textAlign='center'
                 paddingLeft='3.3rem'

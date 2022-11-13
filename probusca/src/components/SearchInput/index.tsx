@@ -8,15 +8,16 @@ import { useRouter } from "next/router";
 import Filtered from "../Filtered";
 
 export default function SearchInput() {
-    const { handleSearch, filters } = useSearch();
+    const { handleSearch, filters, cleanResults } = useSearch();
     const {register, handleSubmit} = useForm();
     const router = useRouter();
     let search = router.query['search'];
     
     const handleSearchSubmit = useCallback( (values: any) => {
         let {search} = values;
+        cleanResults();
         handleSearch(search);
-    }, [handleSearch])
+    }, [cleanResults, handleSearch])
 
     if (search) handleSearchSubmit({search: search});
 
@@ -43,14 +44,17 @@ export default function SearchInput() {
                     </Flex> 
                 )}
                 <Flex
-                    gap='1rem'
+                    gap='.5rem'
                     alignItems='center'
                     justifyItems='flex-start'
+                    flexWrap='wrap'
                 >
-                    <Text textStyle='small' whiteSpace='nowrap'>filtrar por</Text>
+                    <Text textStyle='small' whiteSpace='nowrap'>filtrar por:</Text>
                     <FilterSelect title='Tribunal' filterKey='court' />
                     <FilterSelect title='Classe Judicial' filterKey='judgeClass' />
-                    <FilterSelect title='Órgão Julgador' filterKey='judgeBody' />
+                    <FilterSelect title='Vara' filterKey='judgeBody' />
+                    <FilterSelect title='Comarca' filterKey='jurisdiction' />
+                    <FilterSelect title='Estado' filterKey='state' />
                 </Flex>
             </form>
         </Box>

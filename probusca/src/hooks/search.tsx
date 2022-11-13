@@ -1,17 +1,21 @@
-import React, { useState, useCallback, createContext, useContext } from 'react';
+import React, { useState, useCallback, createContext, useContext, SetStateAction, Dispatch } from 'react';
 import { search, filteredSearch } from '../services/api'
 import { ProcessProps } from '../shared/interfaces/Process.interface'
 import { formatDate, formatLawsuitID } from '../utils/textFormat';
 import { SearchFilterProps, SearchFilterTypes } from '../shared/interfaces/Search.interface';
+import { useRouter } from "next/router";
 
 interface SearchContextData {
     results: Array<ProcessProps>;
     showResults: boolean;
     filters: SearchFilterProps[];
-    handleShowResults: () => void;
+    totalResults: number;
+    setFilters: Dispatch<SetStateAction<SearchFilterProps[]>>;
     handleSearch: (searchTerm: string) => void;
     addFilter: (filterKey: SearchFilterTypes, filterValue: string) => void;
     removeFilter: (filterKey: string) => void;
+    moreResults: () => void;
+    cleanResults: () => void;
 }
 
 const SearchContext = createContext<SearchContextData>({} as SearchContextData);
@@ -24,6 +28,9 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
     const [showResults, setShowResults] = useState(false);
     const [results, setResults] = useState<ProcessProps[]>([]);
     const [filters, setFilters] = useState<SearchFilterProps[]>([]);
+    const [totalResults, setTotalResults] = useState(0);
+    const [actualPage, setActualPage] = useState(1);
+    const [lastSearch, setLastSearch] = useState('');
 
     const addFilter = (filterKey: SearchFilterTypes, filterValue: string) => {
         let newFilters = filters.filter( ({keyFilter, value}) => keyFilter != filterKey );
@@ -36,11 +43,13 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
         let newFilters = filters.filter( ({keyFilter, value}) => keyFilter != filterKey );
         setFilters(newFilters);
     }
-
+    
     const handleSearch = useCallback( async (searchTerm: string) => {
-        if(!!filters) {
-            filteredSearch(searchTerm, filters)
+        setLastSearch(searchTerm);
+        if(filters.length) {
+            filteredSearch(searchTerm, filters, actualPage)
                 .then( response => {
+                    setTotalResults(response.total);
                     response = response.items;
                     response = response.map( (r:any) => {
                         r.subject = r.subject.split('-');
@@ -48,14 +57,15 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
                         r.lawsuitID = formatLawsuitID(r.lawsuitID);
                         return r;
                     });
-                    setResults(response);
+                    setResults([...results, ...response]);
                     setShowResults(true);
                 } );
-            return;
-        };
-
-        search(searchTerm)
+                return;
+            };
+            
+            search(searchTerm, actualPage)
             .then(response => {
+                setTotalResults(response.total);
                 response = response.items;
                 response = response.map( (r:any) => {
                     r.subject = r.subject.split('-');
@@ -63,25 +73,36 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
                     r.lawsuitID = formatLawsuitID(r.lawsuitID);
                     return r;
                 });
-                setResults(response);
+                setResults([...results, ...response]);
                 setShowResults(true);
             });
-    }, [filters])
+        }, [actualPage, filters, results, totalResults])
+        
+    const moreResults = useCallback( () => {
+        if(totalResults <= results.length) return;
+        setActualPage(actualPage+1)
+        handleSearch(lastSearch)
+    }, [actualPage, handleSearch, lastSearch, results.length, totalResults])
 
-    const handleShowResults = useCallback( () => {
-        setShowResults(!showResults);
-    }, [showResults]);
+    const cleanResults = useCallback( () => {
+        setResults([]);
+        setActualPage(1);
+        setTotalResults(0);
+    }, []);
 
     return (
         <SearchContext.Provider
             value={{
                 results,
                 showResults,
-                handleShowResults,
+                totalResults,
                 handleSearch,
                 filters,
+                setFilters,
                 addFilter,
                 removeFilter,
+                moreResults,
+                cleanResults,
             }}
         >
             {children}

@@ -3,4 +3,4 @@ export interface SearchFilterProps {
     value: string;
 }
 
-export type SearchFilterTypes = "court" | 'jurisdiction' | 'judgeBody' | 'judgeClass';
+export type SearchFilterTypes = 'court' | 'jurisdiction' | 'judgeBody' | 'judgeClass' | 'state';

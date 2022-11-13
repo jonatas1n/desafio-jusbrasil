@@ -63,7 +63,8 @@ async def get_filter_list(filter_key):
         'court': database.get_court_list,
         'judgeBody': database.get_judge_body_list,
         'judgeClass': database.get_judge_class_list,
-        'jurisdiction': database.get_jurisdiction_list
+        'jurisdiction': database.get_jurisdiction_list,
+        'state': database.get_states_list,
     }
     if filter_key not in filter_options:
         return []

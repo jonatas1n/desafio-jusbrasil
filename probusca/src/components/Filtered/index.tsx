@@ -13,7 +13,8 @@ enum replaceLabels {
     "court" = "Tribunal",
     "judgeClass" = "Classe Judicial",
     "judgeBody" = "Órgão Julgador",
-    "jurisdiction" = "Comarca"
+    "jurisdiction" = "Comarca",
+    "state" = "Estado",
 };
 
 export default function Filtered({keyFilter, value}: FilteredProps) {

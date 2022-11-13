@@ -35,8 +35,9 @@ export default function ParticipantGroup({list, icon, title}:ParticipantGroupPro
                                             pr='.5rem'
                                             _last={{borderRight: 'none', paddingRight: 0}}
                                             textStyle='h5'
+                                            textTransform='capitalize'
                                         >
-                                            {item}
+                                            {item == 'reu' ? 'réu': item}
                                         </Text>
                                     )
                                 )}
