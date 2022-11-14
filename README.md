@@ -17,3 +17,7 @@ A URL para a API é [http://localhost:7700](http://localhost:7700)
 Caso seja necessário ter acesso por terminal do conteiner de projeto, basta executar
 
 ``make attach``
+
+Para executar os testes automatizados, basta executar o comando:
+
+``make test`` 
