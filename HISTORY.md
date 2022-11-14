@@ -89,3 +89,41 @@ No wireframe, imaginei o foco repartido na movimentação e nos detalhes
 
 # API
 A framework escolhida para a API foi a FastAPI, devido sua fácil implementação, alta eficiência e a interface Swagger, permitindo realizar testes manuais pelo navegador. 
+
+## Endpoints
+Após a prototipação e prospecção de ideias para implementação, foram arquiteturados cinco endpoints de forma a suprir essas ideias e tornar a aplicação mais dinâmica e mais eficiente possível.
+
+### api/ (GET)
+A partir do endpoint raíz, pelo método GET, é possível realizar buscas simples, sem filtros. Esse endpoint, retorna uma lista de processos, com seu número de identificação e dados relacionados ao processo, como jurisdição e Órgão Julgador.
+
+### api/ (POST)
+Parametrizável pelos campos da entidade de processo, esse endpoint retorna os resultados da busca com filtros, permitindo uma busca coma maior acuracia
+
+### api/{id} (GET)
+A partir desse endpoint, com a chave definida, a API retorna todos os dados completos de um processo, necessário para abastecer a página de descrição do processo.
+
+### api/participants/{id} (GET)
+Por esse endpoint, obtém-se a lista de participantes, separados por participantes ativos, passivos e outros participantes do processo.
+
+### api/movement/{id} (GET)
+Nesse endpoint, retorna-se a lista de movimentações. Cada item da lista contém o conteúdo da movimentação e um objeto com data e hora da movimentação.
+
+### api/filters/ (POST)
+A partir desse endpoint, obtém-se os itens dos filtros no campo de busca. Os itens são dinâmicos comforme a definição de filtros anteriores, fazendo-se necessária esse recurso.
+
+# Implementação
+
+## Desempenho
+Segui toda a implementação focada em manter o desempenho da interface. Usei recursos de memoização dos estados e redução de renderizações, como os hooks useCallback() e useMemo().
+
+## Linguagens e decisões
+Optei pelo uso da framework Next.js, considerando a facilidade de roteamento que a ferramenta retorna, e as possibilidades de implementação (que infelizmente não pude aplicar devido o tempo).
+
+A linguagem utilizada foi o Typescript, a fim de reduzir erros de tipagem e melhor estabilidade no escopo do código.
+
+### UI
+Para implementação da interface gráfica, optei pelo ChakraUI. Ele facilita a responsividade dos componentes, bem como sua tematização, e fornece os próprios hooks para utilização dos seus recursos. A escolha dessa framework garantiu maior estabilidade e legibilidade para o código, além de poupar estruturações de diretórios com arquivos de estilo em CSS ou SASS, que mesmo com bom retorno, requerem maior complexidade à organização dos diretórios.
+
+# Se o tempo desse...
+Planejei vários recursos interessantes para a plataforma a fim de mostrar minhas habilidades criativas e de implementação, contudo a idealização das mesmas me tomaram muito tempo, tornando a implementação impraticável. A seguir segue uma lista de implementações e modificações que faria se houvesse mais tempo disponível
+
