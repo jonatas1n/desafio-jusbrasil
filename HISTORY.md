@@ -42,25 +42,24 @@ Foram selecionados 11 estados brasileiros com sistemas de consulta PJE, entre Tr
 - Tocantins (TRF1)
 
 # Processamento dos dados
-Após o crawling, foram gerados arquivos JSON, separados por estados, com os processos coletados. Antes de gerar um arquivo final para utilizar na API, fiz uma limpeza dos dados e agreguei alguns valores a partir dos dados gerados no repositório [forosCNJ](https://github.com/abjur/forosCNJ), com dados como a sigla do tribunal, a comarca do processo e a Unidade federativa. Além disso, os dados de participantes também foram processados para distinguir CPF, Código da OAB e nomes, dentro das entidades.
+Após o crawling, foram gerados arquivos JSON, separados por estados, com os processos coletados. Além disso, os dados de participantes também foram processados para distinguir CPF, Código da OAB e nomes, dentro das entidades.
 
 # Banco de Dados
-A primeira ideia foi utilizar um banco de dados Postgres para fazer a persistência, mas considerando o foco deste desafio, optei por gerar um arquivo .json e utilizar a leitura dele no backend. Caso sobre tempo, posso retornar e implementar a persistência com mais detalhes.
+A primeira ideia foi utilizar um banco de dados Postgres para fazer a persistência, mas considerando o foco deste desafio, optei por gerar um arquivo .json e utilizar a leitura dele no backend.
 
 # Prototipação
-Antes de planejar os endpoints, foquei em idealizar e desenhar a página. Quis aproveitar o realismo dos dados, então decidi adiar a estruturação da API e focar no protótipo para ter melhor noção dos requisitos.
+Antes de planejar os endpoints, foquei em idealizar e desenhar a página. Visando aproveitar o realismo dos dados, decidi adiar a estruturação da API e focar no protótipo para ter melhor noção dos requisitos.
 
 ## As personas
 Para começar, busquei elaborar os perfis de usuário da ferramenta. Para isso, observei a interface de serviços que realizam consultas processuais, e também conversei com pessoas que estudam ou trabalham na área do direito. A partir dessas experiências, cheguei a dois perfis básicos:
-- O usuáfio leigo: Aquele que não tem formação em direito, mas está sendo autor ou réu de algum processo, tem um familiar ou amigo sendo processado e deseja acompanhar todas as movimentações;
-- O usuário do direito: Aquele que tem formação em direito, incompleto ou completo, e que usa essa ferramenta para estudar e notificar seus possíveis clientes.
+- Usuário médio: Aquele que não tem formação em direito, mas está sendo autor ou réu de algum processo, tem um familiar ou amigo sendo processado e deseja acompanhar todas as movimentações;
+- Usuário da área: Aquele que tem formação em direito, incompleto ou completo, e que usa essa ferramenta para estudar e notificar seus possíveis clientes.
 
-Nenhuma das duas personas deve ser abandonada na implementação dessa interface, mas o segundo perfil já está suprido de serviços e ferramentas. Dessa forma, optei por desenvolver uma ferramenta mais amigável e acessível para pessoas leigas em assuntos jurídicos.
+As duas personas devem ser consideradas na implementação desta interface. Contudo, a segundo já está suprida de serviços e ferramentas. Dessa forma, optei por desenvolver uma ferramenta mais amigável e acessível para usuários que não são familiarizados com assuntos jurídicos.
 
 ## A jornada do usuário
 ### Acessibilidade de Linguagem
-O "juridiquês" em ferramentas de consulta de processos jurídicos era mais que esperado. Apontando assim a primeira barreira de acessibilidade. Alguns termos aplicados na busca processual podem ser facilmente substituídos por expressões populares que não reduziria de forma significante seu sentido original. "Comarca", por exemplo, pode ser substituído por "Cidade", sem deixar aplicantes do direito perdidos com a definição. Com este foco, foram
-implementadas tooltips para exibir o significado de termos de baixa popularidade que não podem ser substituídos.
+Uma das principais barreiras de acessibilidade é o "juridiquês", muito presente nas ferramentas de consultas processuais. Com este foco, foram implementadas tooltips para exibir o significado de termos de baixa popularidade.
 
 ### Identificação dos processos
 Na jornada imaginada para o perfil em foco, uma das situações projetadas foi o acompanhamento de processos. Essa projeção deduziu a ansiedade do usuário por novas movimentações no processo, e a consequente reabertura contínua da página para realizar a mesma pesquisa de processo. A fim de atender a essas necessidades do usuário, foram implementados dois recursos: 
@@ -72,20 +71,25 @@ Na jornada imaginada para o perfil em foco, uma das situações projetadas foi o
 ![Captura de tela do componente de previsão da próxima movimentação](./media/previsao.png)
 
 ### Identificação dos participantes
-Nas minhas entrevistas, nota-se que é comum os advogados conhecerem uns aos outros, bem como os juízes e promotores que participam do caso. O usuário leigo, no entanto, não conhece esses integrantes, bem como não conhece suas participações, taxa de vitória nos processos de mesmo assunto que o caso de interesse. Assim, decidi implementar uma seção de exibição de estatísticas do advogado ou da empresa, conforme a participação na ferramenta, exibindo casos procedentes, não procedentes e em andamento.
+Conversando com especialistas, nota-se que é comum os advogados conhecerem uns aos outros, bem como os juízes e promotores que participam do caso. O usuário médio, no entanto, não conhece esses integrantes, bem como não conhece suas participações, taxa de vitórias nos processos de mesmo assunto que o caso de interesse. Assim, decidi implementar uma seção de exibição de estatísticas do advogado ou da empresa, conforme a participação na ferramenta, exibindo casos procedentes, não procedentes e em andamento.
 
 ### Pesquisa Auxiliada
-O método mais eficaz de se chegar a um processo é atraveś do código CNJ, descrito na primeira seção deste documento. Este código, contudo é consideravelmente longo para se manter registro. Além disso, com base nas minhas entrevistas, os advogados que realizam buscas processuais utilizando esse código já tem fixado parte desse código em suas ferramentas, considerando que raramente um advogado precisa fazer consulta fora de sua comarca, tribunal, vara e/ou foro. Para o usuário mais leigo, essa pesquisa por esse parâmetro é desestimulante, além de pouco conclusiva.
+O método mais eficaz de se chegar a um processo é através do código CNJ. Contudo, este código é consideravelmente longo para se manter registro. Além disso, de acordo com os especialistas entrevistados, os advogados que realizam buscas processuais já tem fixada parte desse código em suas ferramentas. A parte fixada é referente à comarca ou tipo de processo procurado. Para o usuário médio, pesquisar com esses parâmetros é desestimulante, exigindo alta carga cognitiva.
 
-Com este foco, tentei tornar a lógica de filtros mais usual possível, utilizando filtro pelos campos indicativos do código CNJ. Além disso, planejo que esses filtros, após determinadas utilizações fique salvo na sessão do usuário, a fim de que ele não precise repetir a escolha desses filtros repetidas vezes.
+Com este foco, tentei tornar a lógica de filtros mais funcional possível, utilizando filtro pelos campos indicativos do código CNJ. Além disso, planejo que esses filtros, após repetidas utilizações, fiquem salvos na sessão do usuário, a fim de que ele não precise repetir a escolha desses filtros.
 
 ### Notificações
-Outro fator recorrente citado nas entrevistas, foi a insistência dos clientes em perguntar por atualizações dos processos. Considerando que a minha ferramenta, em uma implementação real, teria conexão com as atualizações dos movimentos de cada processo, tive a ideia de criar um campo de assinatura de notificações para receber por e-mail quando um processo tiver nova movimentação.
+Os especialistas indicaram uma demanda recorrente dos usuários, que é a insistência dos clientes em perguntar por atualizações dos processos. Considerando que a ferramenta, em uma implementação real, teria conexão com as atualizações dos movimentos de cada processo, tive a ideia de criar um campo de assinatura de notificações para receber por e-mail quando um processo tiver nova movimentação.
 
 ![Captura de tela do componente de previsão da próxima movimentação](./media/notificacao.png)
 
+## Protótipo de alta fidelidade
+Segue o link para o [protótipo](https://www.figma.com/file/AoJfWNcGzBFz3HbJKP08q7/JusBrasil?node-id=16%3A284&t=As1HsAVdi7IufPT5-1), com as versão de alta fidelidade, wireframe, mobile e fundações do sistema de design. Válido ressaltar que alguns elementos presentes na página já implementada não estão conforme os protótipos, devido a modificações posteriores.
+
 ## A Interface
-No wireframe, imaginei o foco repartido na movimentação e nos detalhes 
+No wireframe, imaginei o foco repartido entre a movimentação e os detalhes do processo. Ambos são bem queridos pelos usuários que buscam a ferramenta. Sendo assim, apliquei um componente de timeline vertical, a fim de trazer dinamismo e uma estética moderna, e se diferenciando de uma lista simples, comum em outras ferramentas. Assim, o conteúdo do processo é mostrado em abas, na esquerda, enquanto a movimentação é exibida na direita, simplificando a busca do usuário.
+
+Na busca, foquei em fazer um sistema simples, com foco unificado. Então, a tela inicial tem campo de busca centralizado, apenas com a logo acima e as opções de filtragem a mostra, trazendo intuitividade na utilização.
 
 # API
 A framework escolhida para a API foi a FastAPI, devido sua fácil implementação, alta eficiência e a interface Swagger, permitindo realizar testes manuais pelo navegador. 
@@ -97,7 +101,7 @@ Após a prototipação e prospecção de ideias para implementação, foram arqu
 A partir do endpoint raíz, pelo método GET, é possível realizar buscas simples, sem filtros. Esse endpoint, retorna uma lista de processos, com seu número de identificação e dados relacionados ao processo, como jurisdição e Órgão Julgador.
 
 ### api/ (POST)
-Parametrizável pelos campos da entidade de processo, esse endpoint retorna os resultados da busca com filtros, permitindo uma busca coma maior acuracia
+Parametrizável pelos campos da entidade de processo, esse endpoint retorna os resultados da busca com filtros, permitindo uma busca com maior acuracia
 
 ### api/{id} (GET)
 A partir desse endpoint, com a chave definida, a API retorna todos os dados completos de um processo, necessário para abastecer a página de descrição do processo.
@@ -109,7 +113,7 @@ Por esse endpoint, obtém-se a lista de participantes, separados por participant
 Nesse endpoint, retorna-se a lista de movimentações. Cada item da lista contém o conteúdo da movimentação e um objeto com data e hora da movimentação.
 
 ### api/filters/ (POST)
-A partir desse endpoint, obtém-se os itens dos filtros no campo de busca. Os itens são dinâmicos comforme a definição de filtros anteriores, fazendo-se necessária esse recurso.
+A partir desse endpoint, obtém-se os itens dos filtros no campo de busca. Os itens são dinâmicos conforme a definição de filtros anteriores, fazendo-se necessária esse recurso.
 
 # Implementação
 
@@ -117,13 +121,38 @@ A partir desse endpoint, obtém-se os itens dos filtros no campo de busca. Os it
 Segui toda a implementação focada em manter o desempenho da interface. Usei recursos de memoização dos estados e redução de renderizações, como os hooks useCallback() e useMemo().
 
 ## Linguagens e decisões
-Optei pelo uso da framework Next.js, considerando a facilidade de roteamento que a ferramenta retorna, e as possibilidades de implementação (que infelizmente não pude aplicar devido o tempo).
+Optei pelo uso da framework Next.js, considerando a facilidade de roteamento que a ferramenta retorna, e alguns recursos como server-side rendering, entre outros (que infelizmente não pude aplicar devido a falta de tempo).
 
 A linguagem utilizada foi o Typescript, a fim de reduzir erros de tipagem e melhor estabilidade no escopo do código.
 
 ### UI
 Para implementação da interface gráfica, optei pelo ChakraUI. Ele facilita a responsividade dos componentes, bem como sua tematização, e fornece os próprios hooks para utilização dos seus recursos. A escolha dessa framework garantiu maior estabilidade e legibilidade para o código, além de poupar estruturações de diretórios com arquivos de estilo em CSS ou SASS, que mesmo com bom retorno, requerem maior complexidade à organização dos diretórios.
 
-# Se o tempo desse...
-Planejei vários recursos interessantes para a plataforma a fim de mostrar minhas habilidades criativas e de implementação, contudo a idealização das mesmas me tomaram muito tempo, tornando a implementação impraticável. A seguir segue uma lista de implementações e modificações que faria se houvesse mais tempo disponível
+# Se desse tempo...
+Planejei vários recursos interessantes para a plataforma a fim de demonstrar mais das minhas soft e hard skills. Contudo, a aplicação das mesmas demandariam maior tempo que o disponível. A seguir, segue uma lista das principais implementações e modificações que eu faria se tivesse maior disponibilidade de tempo.
+
+## Coleta de dados
+Foram catalogados 3307 processos, dos tribunais e varas já citados. Não foi possível registrar mais processos, pois o PJE de algumas páginas são protegidos por Captcha. Assim, filtrei os tribunais apenas pelos que não tinham essa verificação.
+
+Além disso, a limpeza dos dados não foi completa. Algumas informações, como a listagem dos dados e os assuntos podem ser apresentados na ferramenta com alguns ruídos, pois o tratamento desses dados é muito custoso em tempo e verificação.
+
+Essas impurezas impediram a implementação de alguns componentes planejados e prototipados, como o da previsão de intervalo de tempo entre as etapas do processo, pois não era possível fazer a busca necessária.
+
+## Componentes idealizados
+Nas entrevistas com os especialistas, tive algumas ideias interessantes se implementadas. Um dos parâmetros úteis para se observar em um processo é a verificação de prazos. Foram relatados casos de pessoas que tiveram o processo não procedente pois o advogado não verificou o prazo de entrega de documentações, e não checou as movimentações. Assim, é interessante a criação de um componente que indica os prazos em aberto, assim como planejou-se com a previsão do intervalo entre cada movimentação.
+
+## Animações
+Planejei adicionar animações nos componentes, como na abertura dos cards dos processos, transições entre as abas e exibição dos resultados da busca.
+
+Planejei também animar os ícones, a fim de tornar a página mais amigável e moderna para o usuário.
+
+## Perfilamento dos advogados
+Idealizei uma página para exibir a descrição dos advogados, suas estatísticas em relação aos dados presentes na plataforma, bem como perfis de juízes e empresas.
+
+Esse perfil pode ser útil para o usuário, seja advogado ou não, saber sobre a procedência de processos relacionados a determinados assuntos que determinado advogado ou empresa foi participante.
+
+## Marcação do último item lido na movimentação e salvar dados de filtragem
+Foi idealizada a implementação de uma verificação e armazenamento da última movimentação vista pelo usuário na página, notificando as atualizações em seu próximo acessos. Além disso, também idealizou-se o registro dos fitros usados repetidamente e seu posterior auto-preenchimento.
+
+O Next.JS tem uma limitação grande no que se refere ao registro de dados de sessão. Com essa limitação não superada, não foi possível implementar tais recursos que facilitariam a vida dos usuários, reduzindo sua busca e mostrando as atualizações da página.
 
