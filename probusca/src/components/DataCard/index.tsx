@@ -24,13 +24,16 @@ export default function DataCard() {
     if (!process) {
         return (
             <Flex
-                backgroundColor='white'
+                direction='column'
+                background='white'
                 padding='2rem'
-                maxHeight='80vh'
-                justifyContent='center'
+                height={{sm:'unset', md:'unset', lg:'50vh'}}
                 alignItems='center'
+                justifyContent='center'
+                gap='1rem'
             >
-                <ReactLoading />
+                <Text textStyle='h2'>Parece que há algo errado...</Text>
+                <Text textStyle='h5' textAlign='center'>Realize uma nova busca ou verifique o endereço e tente novamente.</Text>
             </Flex>
         )
     }

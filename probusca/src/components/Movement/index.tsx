@@ -3,11 +3,25 @@ import 'react-vertical-timeline-component/style.min.css';
 
 import { ProcessMovementProps } from '../../shared/interfaces/Process.interface';
 import { FaCircle } from 'react-icons/fa'
-import { Flex, Text, Box } from '@chakra-ui/react';
+import { Flex, Text, Box, Image } from '@chakra-ui/react';
 import { useProcess } from '../../hooks/process';
+import boy from '../../assets/boy.svg'
 
 export default function Movement() {
-    const { movement } = useProcess();
+    const { movement, process } = useProcess();
+
+    if(!process) {
+        return (
+            <Flex alignItems='flex-end' justifyContent={{sm:'center', md:'center', lg: 'flex-end'}}>
+                <Image
+                    src={boy.src}
+                    alt='Nothing found'
+                    opacity={.6}
+                    width={{sm:'40%', md:'40%', lg:'28rem'}}
+                />
+            </Flex>
+        )
+    }
 
     return (
         <Flex direction='column' overflowY={{lg: 'auto', md: 'auto', sm: 'unset'}} h={{lg: '100%', md: '100%', sm: 'unset'}}>
