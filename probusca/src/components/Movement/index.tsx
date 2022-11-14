@@ -16,7 +16,7 @@ export default function Movement() {
                 <Image
                     src={boy.src}
                     alt='Nothing found'
-                    opacity={.6}
+                    opacity={.3}
                     width={{sm:'40%', md:'40%', lg:'28rem'}}
                 />
             </Flex>

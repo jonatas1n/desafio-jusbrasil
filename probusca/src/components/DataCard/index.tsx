@@ -31,6 +31,7 @@ export default function DataCard() {
                 alignItems='center'
                 justifyContent='center'
                 gap='1rem'
+                borderRadius='.25rem'
             >
                 <Text textStyle='h2'>Parece que há algo errado...</Text>
                 <Text textStyle='h5' textAlign='center'>Realize uma nova busca ou verifique o endereço e tente novamente.</Text>
