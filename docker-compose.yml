@@ -25,3 +25,12 @@ services:
     ports:
       - "7700:7700"
 
+  tests:
+    image: cypress/included:10.0.0
+    container_name: probusca_tests
+    working_dir: /tests
+    volumes:
+      - ./tests:/tests
+    depends_on:
+      - probusca_server
+

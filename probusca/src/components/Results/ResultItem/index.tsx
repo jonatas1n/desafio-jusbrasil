@@ -2,7 +2,8 @@ import { Text, Flex, UnorderedList, ListItem, Stack, useDisclosure, Collapse } f
 import Card from '../../Card';
 import { FaNewspaper, FaCalendar, FaLandmark } from 'react-icons/fa';
 import { TiLocation } from 'react-icons/ti'
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
+import isEqual from 'react-fast-compare';
 
 interface ResultItemProps {
     lawsuitID: string;
@@ -12,7 +13,7 @@ interface ResultItemProps {
     date: string;
 }
 
-export default function ResultItem({lawsuitID, subject, jurisdiction, court, date}: ResultItemProps) {
+function ResultItemComponent({lawsuitID, subject, jurisdiction, court, date}: ResultItemProps) {
     const [showSubjects, setShowSubjects] = useState(false);
     const { isOpen, onToggle } = useDisclosure();
     const subjects = subject.filter(item => item.length > 0);
@@ -72,3 +73,9 @@ export default function ResultItem({lawsuitID, subject, jurisdiction, court, dat
         </Card>
     )
 }
+
+const ResultItem = memo(ResultItemComponent, (p, n) => (
+    isEqual(p, n)
+));
+
+export default ResultItem;

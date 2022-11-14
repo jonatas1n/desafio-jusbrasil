@@ -23,9 +23,9 @@ export default function Results() {
         >
             <Title icon={FaSearch} title='Resultados' />
             <Stack spacing='1rem' mb='1rem'>
-                { results.map(({lawsuitID, court, jurisdiction, subject, date}, index) => (
+                { results.map(({lawsuitID, court, jurisdiction, subject, date}) => (
                     <ResultItem
-                        key={index}
+                        key={lawsuitID}
                         subject={subject}
                         jurisdiction={jurisdiction}
                         lawsuitID={lawsuitID}
