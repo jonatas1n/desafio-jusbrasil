@@ -138,8 +138,12 @@ Além disso, a limpeza dos dados não foi completa. Algumas informações, como 
 
 Essas impurezas impediram a implementação de alguns componentes planejados e prototipados, como o da previsão de intervalo de tempo entre as etapas do processo, pois não era possível fazer a busca necessária.
 
+Idealmente, faria a sanitização adequada dos dados, identificando as movimentações e obtendo mais adequadamente os assuntos. Assim, faria um endpoint get que me retornaria a previsão com base na média de avanço de etapas do mesmo tipo em dados registrados.
+
 ## Componentes idealizados
 Nas entrevistas com os especialistas, tive algumas ideias interessantes se implementadas. Um dos parâmetros úteis para se observar em um processo é a verificação de prazos. Foram relatados casos de pessoas que tiveram o processo não procedente pois o advogado não verificou o prazo de entrega de documentações, e não checou as movimentações. Assim, é interessante a criação de um componente que indica os prazos em aberto, assim como planejou-se com a previsão do intervalo entre cada movimentação.
+
+Verifiquei que em algumas bases de dados é possível realizar mineração de texto e outras técnicas de obtenção de dados, obtendo assim os prazos nos processos. Com um modelo de persistência de dados mais adequado, faria o registro dessas médias, na mesma periodicidade da atualização dos processos registrados.
 
 ## Animações
 Planejei adicionar animações nos componentes, como na abertura dos cards dos processos, transições entre as abas e exibição dos resultados da busca.
@@ -151,8 +155,11 @@ Idealizei uma página para exibir a descrição dos advogados, suas estatística
 
 Esse perfil pode ser útil para o usuário, seja advogado ou não, saber sobre a procedência de processos relacionados a determinados assuntos que determinado advogado ou empresa foi participante.
 
+Na implementação ideal, os advogados e as empresas teriam seus registros em tabelas, posicionando suas identificações que seriam rastreáveis no corpo de cada processo. Desse modo, seria posível obter seus insights e estatísticas.
+
 ## Marcação do último item lido na movimentação e salvar dados de filtragem
 Foi idealizada a implementação de uma verificação e armazenamento da última movimentação vista pelo usuário na página, notificando as atualizações em seu próximo acessos. Além disso, também idealizou-se o registro dos fitros usados repetidamente e seu posterior auto-preenchimento.
 
 O Next.JS tem uma limitação grande no que se refere ao registro de dados de sessão. Com essa limitação não superada, não foi possível implementar tais recursos que facilitariam a vida dos usuários, reduzindo sua busca e mostrando as atualizações da página.
 
+Superada a limitação da sessão, os dados seriam registrados no local de sessão, e recuperados em cada acesso.
