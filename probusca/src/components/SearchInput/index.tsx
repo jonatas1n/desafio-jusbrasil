@@ -48,8 +48,9 @@ export default function SearchInput() {
                         p='.5rem'
                         onClick={handleSubmit(handleSearchSubmit)}
                         borderRadius='.5rem'
+                        transform='scaleX(-1)'
                     >
-                        <FaSearch className='search__btn' transform='scaleX(-1)' size='2rem'/>
+                        <FaSearch className='search__btn' size='2rem'/>
                     </Box>
                 </Flex>
                 { !!filters && (
