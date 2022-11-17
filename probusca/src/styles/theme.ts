@@ -19,7 +19,7 @@ export const theme = extendTheme({
     styles: {
         global: {
             body: {
-                bg: 'pallete.background',
+                bg: 'white',
                 color: 'pallete.text'
             }
         }

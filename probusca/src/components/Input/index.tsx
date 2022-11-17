@@ -28,6 +28,7 @@ interface InputProps extends InputGroupProps {
     error?: FieldError;
     hasValue?: boolean;
     value?: string;
+    onClick?: () => void;
 }
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({
@@ -38,6 +39,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({
     type,
     hasValue,
     value,
+    onClick,
     ...rest
 }, ref ) => {
     const [iconColor, setIconColor] = useState("pallete.secondary");
@@ -92,13 +94,6 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({
             }}
             size="lg"
             />
-            <InputRightElement
-                top='.75rem'
-                right='1rem'
-                pointerEvents="none"
-            >
-                <FaSearch fontSize='1.5rem' color={iconColor} />
-            </InputRightElement>
         </InputGroup>
         {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
         </FormControl>

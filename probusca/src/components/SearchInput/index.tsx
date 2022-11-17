@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import Filtered from "../Filtered";
 import FiltersContainer from "../FiltersContainer";
+import { FaSearch } from "react-icons/fa";
 
 export default function SearchInput() {
     const { handleSearch, filters, cleanResults } = useSearch();
@@ -30,12 +31,26 @@ export default function SearchInput() {
             gap='1rem'
         >
             <form onSubmit={handleSubmit(handleSearchSubmit)}>
-                <Input
-                    type='text'
-                    placeholder='Consultar processos'
+                <Flex
+                    alignItems='center'
+                    gap='1rem'
                     mb='1.5rem'
-                    {...register("search")}
-                />
+                >
+                    <Input
+                        type='text'
+                        placeholder='Consultar processos'
+                        onClick={handleSubmit(handleSearchSubmit)}
+                        {...register("search")}
+                    />
+                    <Box
+                        _hover={{background: "#ddd", cursor: 'pointer'}}
+                        p='.5rem'
+                        onClick={handleSubmit(handleSearchSubmit)}
+                        borderRadius='.5rem'
+                    >
+                        <FaSearch size='2rem'/>
+                    </Box>
+                </Flex>
                 { !!filters && (
                     <Flex pb='1rem' flexWrap='wrap' gap='1rem'>
                         {filters.map( ({keyFilter, value}, index) => (
