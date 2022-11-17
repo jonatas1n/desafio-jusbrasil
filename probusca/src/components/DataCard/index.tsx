@@ -11,7 +11,7 @@ import ReactLoading from 'react-loading';
 export default function DataCard() {
     const [selectedMenu, setSelectedMenu] = useState('Sobre');
     const router = useRouter();
-    const { handleProcess, process } = useProcess();
+    const { handleProcess, process, showError } = useProcess();
 
     useEffect( () => {
         let processID = router.query['id'];
@@ -21,7 +21,7 @@ export default function DataCard() {
     
     const handleMenu = useCallback((item: string) => setSelectedMenu(item), []);
 
-    if (!process) {
+    if (showError) {
         return (
             <Flex
                 direction='column'
@@ -43,17 +43,29 @@ export default function DataCard() {
         <Box
             backgroundColor='white'
             padding='2rem'
-            maxHeight='80vh'
+            maxHeight={{ sm: 'unset', md: 'unset', lg:'80vh'}}
+            className='data-card'
         >
-            <Flex direction='column' justifyContent='space-between' alignItems='flex-start' gap='1rem'>
-                <Text textAlign='left' fontWeight={500} textStyle='h2'>Processo { process?.lawsuitID }</Text>
+            <Flex
+                direction='column'
+                justifyContent='space-between'
+                alignItems='flex-start'
+                gap='1rem'
+            >
+                <Text
+                    textAlign='left'
+                    fontWeight={500}
+                    textStyle='h2'
+                >
+                        Processo { process?.lawsuitID }
+                </Text>
                 <BellButton />
             </Flex>
             <TabMenu
                 state={selectedMenu}
                 setState={handleMenu}
             />
-            <Flex h='70%' direction='column' overflowY='auto'>
+            <Flex h={{sm: 'unset', md: 'unset', lg: '70%'}} direction='column' overflowY='auto'>
                 { selectedMenu == 'Sobre'
                     ? <ListData />
                     : <Participants /> 

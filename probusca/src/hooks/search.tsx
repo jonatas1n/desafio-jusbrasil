@@ -18,6 +18,7 @@ interface SearchContextData {
     moreResults: () => void;
     cleanResults: () => void;
     handleFilterOptions: () => void;
+    showError: boolean;
 }
 
 const SearchContext = createContext<SearchContextData>({} as SearchContextData);
@@ -31,6 +32,7 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
     const [results, setResults] = useState<ProcessProps[]>([]);
     const [filters, setFilters] = useState<SearchFilterProps[]>([]);
     const [filtersOptions, setFiltersOptions] = useState<SearchFiltersOptions|undefined>(undefined);
+    const [showError, setShowError] = useState(false);
 
     const [totalResults, setTotalResults] = useState(0);
     const [actualPage, setActualPage] = useState(1);
@@ -61,10 +63,10 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
                         return r;
                     });
                     setResults([...results, ...response]);
-                    setShowResults(true);
+                    if(results.length) setShowResults(true);
                 } );
-                return;
-            };
+            return;
+        };
             
             search(searchTerm, actualPage)
             .then(response => {
@@ -77,11 +79,12 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
                     return r;
                 });
                 setResults([...results, ...response]);
-                setShowResults(true);
+                if(results.length) setShowResults(true);
             });
 
             handleFilterOptions();
-            setShowResults(true);
+            setShowResults(!!results);
+            setShowError(!results);
         }, [actualPage, filters, handleFilterOptions, results])
         
     const moreResults = useCallback( () => {
@@ -131,7 +134,8 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
                 getFilterOptions,
                 moreResults,
                 cleanResults,
-                handleFilterOptions
+                handleFilterOptions,
+                showError
             }}
         >
             {children}

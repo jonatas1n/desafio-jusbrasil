@@ -42,7 +42,7 @@ export default function FilterSelect({title, filterKey}:FilterSelectProps) {
         <Flex>
             <Modal isOpen={modalStatus} onClose={toggleModal}>
                 <ModalOverlay />
-                <ModalContent>
+                <ModalContent className='filter-select__modal'>
                     <ModalHeader>{title}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
@@ -84,7 +84,7 @@ export default function FilterSelect({title, filterKey}:FilterSelectProps) {
                     </ModalBody>
                 </ModalContent>
             </Modal>
-            <Button onClick={toggleModal}>
+            <Button className='filter-select' onClick={toggleModal}>
                 <Text textStyle='h5'>{title.toUpperCase()}</Text>
             </Button>
         </Flex>

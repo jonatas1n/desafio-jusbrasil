@@ -6,13 +6,11 @@ import ResultItem from "./ResultItem";
 import Button from "../Button";
 
 export default function Results() {
-    const { results, totalResults, moreResults } = useSearch();
+    const { results, moreResults, showError } = useSearch();
 
-    if(results.length == 0) {
-        return (
-            <Text textAlign='center' p='3rem' textStyle='h2'>Sem resultados.</Text>
-        )
-    }
+    if(showError) {
+        <Text textStyle='h2'>Sem resultados</Text>
+    };
 
     return (
         <Flex
@@ -20,6 +18,7 @@ export default function Results() {
             gap='1.5rem'
             mt='1.5rem'
             pb='2rem'
+            className='results'
         >
             <Title icon={FaSearch} title='Resultados' />
             <Stack spacing='1rem' mb='1rem'>
@@ -34,7 +33,7 @@ export default function Results() {
                     />
                 )) }
             </Stack>
-            {results.length < totalResults ? (
+            {showError ? (
                 <Flex justifyContent='center'>
                     <Button onClick={moreResults}> Mais resultados </Button>
                 </Flex>

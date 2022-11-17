@@ -40,6 +40,7 @@ export default function BellButton() {
             paddingBlock='.5rem'
             border='1px solid #d8d8d8'
             onClick={handleBell}
+            className='bell-button'
         >
             <FaBell size='1.5rem' color={notificationOn ? 'black' : '#d8d8d8'} />
             <Text fontSize= '.825rem' textStyle='h5'>Notificar</Text>

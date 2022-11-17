@@ -4,9 +4,10 @@ interface ButtonProps {
     children: React.ReactNode;
     background?: string;
     onClick?: () => void;
+    className?: string;
 }
 
-export default function Button({children, onClick, background='white'}:ButtonProps) {
+export default function Button({children, onClick, background='white', className}:ButtonProps) {
     return (
         <Btn
             background={background}
@@ -15,6 +16,7 @@ export default function Button({children, onClick, background='white'}:ButtonPro
             _hover={{background: '#D8D8D8', cursor: 'pointer'}}
             borderRadius='5rem'
             onClick={onClick}
+            className={className}
         >
             {children}
         </Btn>

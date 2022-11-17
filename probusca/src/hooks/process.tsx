@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useState, SetStateAction, Dispatch } from "react";
 import { getProcess, getParticipants, getMovement } from '../services/api';
 import { ProcessProps, ProcessParticipantProps, ProcessMovementProps } from "../shared/interfaces/Process.interface";
 import { formatDate, formatLawsuitID } from '../utils/textFormat';
@@ -10,6 +10,8 @@ interface ProcessContextData {
     active: ProcessParticipantProps[];
     passive: ProcessParticipantProps[];
     others: ProcessParticipantProps[];
+    showError: boolean;
+    setShowError: Dispatch<SetStateAction<boolean>>;
 }
 
 const ProcessContext = createContext<ProcessContextData>({} as ProcessContextData);
@@ -24,6 +26,7 @@ function ProcessProvider({children}: ProcessProviderProps): JSX.Element {
     const [passive, setPassive] = useState<ProcessParticipantProps[]>([]);
     const [others, setOthers] = useState<ProcessParticipantProps[]>([]);
     const [movement, setMovement] = useState<ProcessMovementProps[]>([]);
+    const [showError, setShowError] = useState(false);
     
     const handleProcess = useCallback((processID: string) => {
         getProcess(processID)
@@ -32,7 +35,10 @@ function ProcessProvider({children}: ProcessProviderProps): JSX.Element {
                 data.lawsuitID = formatLawsuitID(data.lawsuitID);
                 return data;
             })
-            .then(data => setProcess(data));
+            .then(data => {
+                setProcess(data);
+                if(!process) setShowError(true);
+            });
 
         getParticipants(processID)
             .then(data => {
@@ -62,6 +68,8 @@ function ProcessProvider({children}: ProcessProviderProps): JSX.Element {
                 passive,
                 others,
                 movement,
+                showError,
+                setShowError,
             }}
         >
             {children}

@@ -31,25 +31,25 @@ export default function TabMenu({state, setState}: TabMenuProps) {
                     flex={1}
                     key={title}
                     justifyContent='center'
-                    gap='1rem'
                     alignItems='center'
                     paddingBlock='1rem'
                     borderBottom={title == state ? '2px solid black': ''}
                     onClick={() => setState(title)}
+                    className='tab'
                     _hover={{
                         cursor: 'pointer',
                     }}
                 >
                     { title == state ? (
-                        <>
+                        <Flex gap='1rem' className={title}>
                             <Icon w='1.5rem' h='1.5rem' as={activeIcon} />
                             <Text textStyle='h4' color='black' fontWeight={700}>{title}</Text>
-                        </>
+                        </Flex>
                     ) : (
-                        <>
+                        <Flex gap='1rem' className={title}>
                             <Icon w='1.5rem' h='1.5rem' as={inactiveIcon} />
                             <Text textStyle='h4' fontWeight={400}>{title}</Text>
-                        </>
+                        </Flex>
                     )}
                 </Flex>
             ))}

@@ -1,6 +1,6 @@
 import { Text, Flex, UnorderedList, ListItem, Stack, useDisclosure, Collapse } from '@chakra-ui/react';
 import Card from '../../Card';
-import { FaNewspaper, FaCalendar, FaLandmark } from 'react-icons/fa';
+import { FaNewspaper, FaCalendarAlt, FaLandmark } from 'react-icons/fa';
 import { TiLocation } from 'react-icons/ti'
 import { memo, useCallback, useState } from 'react';
 import isEqual from 'react-fast-compare';
@@ -36,6 +36,7 @@ function ResultItemComponent({lawsuitID, subject, jurisdiction, court, date}: Re
             onMouseEnter={setSubjectsVisible}
             onMouseLeave={setSubjectsInvisible}
             link={'/process/?id=' + link}
+            className='results__item'
         >
             <Text textStyle='h4' marginBottom='1rem'>Processo {lawsuitID}</Text>
             <Flex
@@ -65,7 +66,7 @@ function ResultItemComponent({lawsuitID, subject, jurisdiction, court, date}: Re
                         <Text textStyle='h5'>{jurisdiction}</Text>
                     </Flex>
                     <Flex gap='.5rem' alignItems='center'>
-                        <FaCalendar />
+                        <FaCalendarAlt />
                         <Text textStyle='h5'>{date}</Text>
                     </Flex>
                 </Flex>

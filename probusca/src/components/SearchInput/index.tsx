@@ -40,6 +40,7 @@ export default function SearchInput() {
                         type='text'
                         placeholder='Consultar processos'
                         onClick={handleSubmit(handleSearchSubmit)}
+                        className='search__input'
                         {...register("search")}
                     />
                     <Box
@@ -48,7 +49,7 @@ export default function SearchInput() {
                         onClick={handleSubmit(handleSearchSubmit)}
                         borderRadius='.5rem'
                     >
-                        <FaSearch size='2rem'/>
+                        <FaSearch className='search__btn' transform='scaleX(-1)' size='2rem'/>
                     </Box>
                 </Flex>
                 { !!filters && (

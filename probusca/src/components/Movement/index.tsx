@@ -6,11 +6,16 @@ import { FaCircle } from 'react-icons/fa'
 import { Flex, Text, Box, Image } from '@chakra-ui/react';
 import { useProcess } from '../../hooks/process';
 import boy from '../../assets/boy.svg'
+import { useEffect } from 'react';
 
 export default function Movement() {
-    const { movement, process } = useProcess();
+    const { movement, process, showError, setShowError } = useProcess();
 
-    if(!process) {
+    useEffect( () => {
+        setShowError(!process);
+    }, [process, setShowError])
+
+    if(showError) {
         return (
             <Flex alignItems='flex-end' justifyContent={{sm:'center', md:'center', lg: 'flex-end'}}>
                 <Image
@@ -24,7 +29,12 @@ export default function Movement() {
     }
 
     return (
-        <Flex direction='column' overflowY={{lg: 'auto', md: 'auto', sm: 'unset'}} h={{lg: '100%', md: '100%', sm: 'unset'}}>
+        <Flex
+            className='movement'
+            direction='column'
+            overflowY={{lg: 'auto', md: 'auto', sm: 'unset'}}
+            h={{lg: '100%', md: '100%', sm: 'unset'}}
+        >
             <Box
                 textAlign='center'
                 paddingLeft='3.3rem'

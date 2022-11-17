@@ -23,6 +23,7 @@ export default function FilterSelectItem({filterKey, option, closeModal}:FilterS
             _hover={{background: "#DDD", cursor: 'pointer'}}
             _last={{borderBottom: '0'}}
             p='.5rem'
+            className='filter-select__item'
         >
             <Text>{option}</Text>
         </Box>

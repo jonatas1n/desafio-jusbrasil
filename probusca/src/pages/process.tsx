@@ -4,7 +4,6 @@ import logo from '../assets/img/logo.png'
 import { FaArrowLeft } from "react-icons/fa";
 import DataCard from "../components/DataCard";
 import Movement from "../components/Movement";
-import { useProcess } from "../hooks/process";
 
 export default function Process() {
     return (
