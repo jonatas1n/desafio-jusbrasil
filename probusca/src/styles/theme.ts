@@ -4,7 +4,7 @@ export const theme = extendTheme({
     colors: {
         pallete: {
             "text": "#494949",
-            "background": "#ECECEC",
+            "background": "#F4F4F4",
             "darkGray": "#8D8D8D",
             "recentCard": "#F3F3F3",
             "blue": "#388dc8",
@@ -19,7 +19,7 @@ export const theme = extendTheme({
     styles: {
         global: {
             body: {
-                bg: 'white',
+                bg: 'pallete.background',
                 color: 'pallete.text'
             }
         }
