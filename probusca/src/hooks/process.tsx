@@ -6,7 +6,6 @@ import { formatDate, formatLawsuitID } from '../utils/textFormat';
 interface ProcessContextData {
     process: ProcessProps|undefined;
     movement: ProcessMovementProps[];
-    totalMovement: number;
     handleProcess: (processID: string) => void;
     active: ProcessParticipantProps[];
     passive: ProcessParticipantProps[];
@@ -25,7 +24,6 @@ function ProcessProvider({children}: ProcessProviderProps): JSX.Element {
     const [passive, setPassive] = useState<ProcessParticipantProps[]>([]);
     const [others, setOthers] = useState<ProcessParticipantProps[]>([]);
     const [movement, setMovement] = useState<ProcessMovementProps[]>([]);
-    const [totalMovement, setTotalMovement] = useState(0);
     
     const handleProcess = useCallback((processID: string) => {
         getProcess(processID)
@@ -51,8 +49,7 @@ function ProcessProvider({children}: ProcessProviderProps): JSX.Element {
                 })
             ))
             .then(data => {
-                setMovement(data.items);
-                setTotalMovement(data.total);
+                setMovement(data);
             })
     }, []);
 
@@ -65,7 +62,6 @@ function ProcessProvider({children}: ProcessProviderProps): JSX.Element {
                 passive,
                 others,
                 movement,
-                totalMovement
             }}
         >
             {children}

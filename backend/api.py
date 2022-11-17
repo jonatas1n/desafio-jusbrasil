@@ -53,10 +53,10 @@ async def get_participants(code:str, type:str='active'):
     participants = type_functions[type](code)
     return participants
 
-@app.get('/movement/{code}', response_model=Page[MovementResponse])
+@app.get('/movement/{code}')
 async def get_movement(code: str):
     result = database.get_movement(code)
-    return paginate(result)
+    return result
 
 @app.post('/filters/')
 async def get_filter_list(filters: FiltersRequest):

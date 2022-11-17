@@ -35,7 +35,7 @@ export default function Movement() {
             >
                 <Text textStyle='h2'>Sem novas movimentações.</Text>
             </Box>
-            <VerticalTimeline layout='1-column-left' lineColor="#D9D9D9">
+            { !!movement && <VerticalTimeline layout='1-column-left' lineColor="#D9D9D9">
                 { movement.map( (move:ProcessMovementProps, index:number) => (
                     <VerticalTimelineElement
                         key={index}
@@ -50,7 +50,7 @@ export default function Movement() {
                     </VerticalTimelineElement>
                 ))}
                 
-            </VerticalTimeline>
+            </VerticalTimeline> }
             <Box
                     textAlign='center'
                     paddingLeft='3.3rem'
