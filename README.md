@@ -10,7 +10,7 @@ Para executar o projeto, basta executar o comando:
 
 ``make up``
 
-Ele executará todo o projeto, que estará acessível no link: [http://localhost:7755](http://localhost:7755)
+Ele executará todo o projeto, que estará acessível no link: [http://localhost:7777](http://localhost:7777)
 
 A URL para a API é [http://localhost:7700](http://localhost:7700)
 
