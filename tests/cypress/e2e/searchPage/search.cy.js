@@ -4,6 +4,7 @@ describe('Test search input', () => {
         cy.get('.search__input')
             .type('maria');
         cy.get('.search__btn').click();
+        cy.wait(800);
         cy.get('.results__item').each( (item, index, list) => {
             expect(list).to.not.have.length(0);
         });
