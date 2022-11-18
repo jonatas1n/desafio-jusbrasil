@@ -157,6 +157,14 @@ Esse perfil pode ser útil para o usuário, seja advogado ou não, saber sobre a
 
 Na implementação ideal, os advogados e as empresas teriam seus registros em tabelas, posicionando suas identificações que seriam rastreáveis no corpo de cada processo. Desse modo, seria posível obter seus insights e estatísticas.
 
+# Arquitetura
+O projeto ficou dividido em 4 containers, dividindo o proxy nginx, a api, o projeto em React e um de testes.
+Em uma visão geral, a arquitetura consiste no usuário que realiza buscas no Probusca (Container: Probusca_server), que se alimenta da API (Container: Probusca_api), que foi alimentada por um script em um notebook presente na pasta `./coleta`.
+
+O container de testes (Container: test) realiza testes do ponto de vista do front, utilizando Cypress, visitando de forma geral as principais utilizações do usuário.
+
+Por fim, chegamos ao Nginx que realiza o proxy reverso, facilitando o acesso dos containers, como também tornando possível a melhor testagem dos componentes.
+
 ## Marcação do último item lido na movimentação e salvar dados de filtragem
 Foi idealizada a implementação de uma verificação e armazenamento da última movimentação vista pelo usuário na página, notificando as atualizações em seu próximo acessos. Além disso, também idealizou-se o registro dos fitros usados repetidamente e seu posterior auto-preenchimento.
 
