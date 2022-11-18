@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { SearchFilterProps } from '../shared/interfaces/Search.interface';
-import { useSearch } from '../hooks/search'
 
 const api = axios.create({
-    baseURL: 'http://localhost:7700',
+    baseURL: '/api',
 });
 
 export const search = (searchTerm: string, page: number = 1) => {

@@ -22,28 +22,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/{code}")
+@app.get("/api/{code}")
 async def process(code:str):
     process = database.get_process(code)
     if process is None:
-        return
+        return "No process found"
     return process
 
-@app.get("/", response_model=Page[SearchResponse])
+@app.get("/api/", response_model=Page[SearchResponse])
 async def search(search:str|None=None):
     if search is None:
-        return
+        return "No parameters set"
     results = database.search(search)
     return paginate(results)
 
-@app.post("/",  response_model=Page[SearchResponse])
+@app.post("/api/",  response_model=Page[SearchResponse])
 async def filtered_search(filters: PostRequest,):
     filters = [tuple(filter) for filter in filters if filter[1] is not None]
     filters = dict(filters)
     results = database.filtered_search(**filters)
     return paginate(results)
 
-@app.get("/participants/{code}")
+@app.get("/api/participants/{code}")
 async def get_participants(code:str, type:str='active'):
     type_functions = {
         'active': database.get_active,
@@ -53,12 +53,12 @@ async def get_participants(code:str, type:str='active'):
     participants = type_functions[type](code)
     return participants
 
-@app.get('/movement/{code}')
+@app.get('/api/movement/{code}')
 async def get_movement(code: str):
     result = database.get_movement(code)
     return result
 
-@app.post('/filters/')
+@app.post('/api/filters/')
 async def get_filter_list(filters: FiltersRequest):
     filters = [tuple(filter) for filter in filters if filter[1] is not None]
     filters = dict(filters)

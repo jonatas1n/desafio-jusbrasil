@@ -1,5 +1,5 @@
 up:
-	docker-compose up probusca_server probusca_api
+	docker-compose up nginx
 
 attach:
 	docker exec -it probusca_server bash

@@ -2,6 +2,6 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:7755/',
+    baseUrl: 'http://nginx:7777/',
   },
 });

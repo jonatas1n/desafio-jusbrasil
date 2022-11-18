@@ -25,6 +25,16 @@ services:
     ports:
       - "7700:7700"
 
+  nginx:
+    image: nginx:1.17.10
+    depends_on:
+      - probusca_server
+      - probusca_api
+    volumes:
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+    - 7777:7777
+
   tests:
     image: cypress/included:10.0.0
     container_name: probusca_tests
@@ -32,4 +42,4 @@ services:
     volumes:
       - ./tests:/tests
     depends_on:
-      - probusca_server
+      - nginx
