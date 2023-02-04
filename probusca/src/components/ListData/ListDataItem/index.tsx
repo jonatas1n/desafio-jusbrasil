@@ -3,8 +3,8 @@ import { IconType } from "react-icons";
 
 interface ListDataItemProps {
     label: string;
-    value: string|undefined;
-    icon: IconType;
+    value?: string|undefined;
+    icon?: IconType;
 }
 
 export default function ListDataItem({label, value, icon}: ListDataItemProps) {

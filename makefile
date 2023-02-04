@@ -1,6 +1,9 @@
 up:
 	docker-compose up nginx
 
+build:
+	docker-compose build
+
 attach:
 	docker exec -it probusca_server bash
 
