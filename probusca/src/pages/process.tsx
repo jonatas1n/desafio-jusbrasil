@@ -4,10 +4,14 @@ import logo from '../assets/img/logo.png'
 import { FaArrowLeft } from "react-icons/fa";
 import DataCard from "../components/DataCard";
 import Movement from "../components/Movement";
+import Head from "next/head";
 
 export default function Process() {
     return (
         <Container wide>
+            <Head>
+                <title>Processo</title>
+            </Head>
             <SimpleGrid
                 columns={{lg: 2, md: 1}}
                 h='100vh'

@@ -4,12 +4,16 @@ import logo from "../assets/img/logo.png"
 import SearchInput from "../components/SearchInput";
 import Results from "../components/Results";
 import { useSearch } from "../hooks/search";
+import Head from 'next/head'
 
 export default function Home() {
   const { showResults } = useSearch();
 
   return (
     <Container>
+      <Head>
+        <title>Probusca</title>
+      </Head>
       <Flex
         direction='column'
         justifyContent={showResults ? 'unset' : 'center'}
