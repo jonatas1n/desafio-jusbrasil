@@ -7,7 +7,8 @@ import { useSearch } from "../hooks/search";
 import Head from 'next/head'
 
 export default function Home() {
-  const { showResults } = useSearch();
+  const { totalResults } = useSearch();
+  const showResults = totalResults > 0;
 
   return (
     <Container>

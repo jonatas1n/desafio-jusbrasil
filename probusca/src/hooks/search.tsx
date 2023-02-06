@@ -6,7 +6,6 @@ import { SearchFilterProps, SearchFiltersOptions, SearchFilterTypes } from '../s
 
 interface SearchContextData {
     results: Array<ProcessProps>;
-    showResults: boolean;
     filters: SearchFilterProps[];
     filtersOptions: SearchFiltersOptions|undefined;
     totalResults: number;
@@ -28,7 +27,6 @@ type SearchProviderProps = {
 }
 
 function SearchProvider({children}: SearchProviderProps ): JSX.Element {
-    const [showResults, setShowResults] = useState(false);
     const [results, setResults] = useState<ProcessProps[]>([]);
     const [filters, setFilters] = useState<SearchFilterProps[]>([]);
     const [filtersOptions, setFiltersOptions] = useState<SearchFiltersOptions|undefined>(undefined);
@@ -49,7 +47,6 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
     }, [filtersOptions]);
 
     const handleSearch = useCallback( async (searchTerm: string) => {
-        setShowResults(false);
         setLastSearch(searchTerm);
         if(filters.length) {
             filteredSearch(searchTerm, filters, actualPage)
@@ -63,7 +60,7 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
                         return r;
                     });
                     setResults([...results, ...response]);
-                    if(results.length) setShowResults(true);
+                    if(!results.length) setShowError(true);
                 } );
             return;
         };
@@ -79,11 +76,10 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
                     return r;
                 });
                 setResults([...results, ...response]);
-                if(results.length) setShowResults(true);
+                if(!results.length) setShowError(true);
             });
 
             handleFilterOptions();
-            setShowResults(!!results);
             setShowError(!results);
         }, [actualPage, filters, handleFilterOptions, results])
         
@@ -123,7 +119,6 @@ function SearchProvider({children}: SearchProviderProps ): JSX.Element {
         <SearchContext.Provider
             value={{
                 results,
-                showResults,
                 totalResults,
                 handleSearch,
                 filters,
