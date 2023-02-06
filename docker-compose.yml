@@ -37,14 +37,3 @@ services:
     ports:
       - 80:80
     container_name: probusca_nginx
-
-  tests:
-    image: cypress/included:10.0.0
-    container_name: probusca_tests
-    working_dir: /tests
-    volumes:
-      - ./tests:/tests
-    depends_on:
-      - nginx
-
-
