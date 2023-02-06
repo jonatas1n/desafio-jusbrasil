@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 RUN  npm install --production
+RUN npm i --save-dev react-vertical-timeline-component
+RUN npm i --save-dev @types/react-vertical-timeline-component
 
 FROM node:18-alpine AS builder
 WORKDIR /app
