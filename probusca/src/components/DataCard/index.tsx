@@ -6,7 +6,6 @@ import Participants from "../Participants";
 import { useRouter } from "next/router";
 import { useProcess } from "../../hooks/process";
 import BellButton from "../BellButton";
-import ReactLoading from 'react-loading';
 
 export default function DataCard() {
     const [selectedMenu, setSelectedMenu] = useState('Sobre');

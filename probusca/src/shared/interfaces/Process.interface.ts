@@ -18,7 +18,7 @@ export interface ProcessParticipantProps {
     type: string;
     is_active: boolean | string;
     name: string;
-    OAB: string;
+    OAB?: string;
     text: string;
     id: string;
 }
