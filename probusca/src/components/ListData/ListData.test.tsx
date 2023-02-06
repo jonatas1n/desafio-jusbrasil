@@ -18,7 +18,7 @@ jest.mock("../../hooks/process", () => ({
     }))
 }));
 
-describe("ListData", () => {
+describe("ListData component", () => {
     it("should useProcess hook data render correctly", () => {
         const { getByText } = render(<ListData />);
 

@@ -27,7 +27,7 @@ export default function SearchInput() {
             bgColor='white'
             p='2rem'
             borderRadius='.25rem'
-            className="Jonatas"
+            className="SearchInput"
             gap='1rem'
         >
             <form onSubmit={handleSubmit(handleSearchSubmit)}>

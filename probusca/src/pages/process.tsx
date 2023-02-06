@@ -22,22 +22,24 @@ export default function Process() {
                     direction='column'
                     flex={3}
                     gap='1.5rem'
-                >
+                    >
                     <Image
                         src={logo.src}
                         w='200px'
                         paddingBlock='25px'
                         alt="Probusca"
                         mt='1rem'
+                        ml='1rem'
                     />
                     <Flex
                         as={Link}
                         href='/'
                         alignItems='center'
                         gap='1rem'
+                        ml='1rem'
                     >
                         <FaArrowLeft size='1.25rem'/>
-                        Voltar para buscar
+                        Voltar para busca
                     </Flex>
                     <DataCard />
                 </Flex>
