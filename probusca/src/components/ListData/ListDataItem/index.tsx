@@ -1,7 +1,7 @@
 import { Flex, Icon, Text } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 
-interface ListDataItemProps {
+export interface ListDataItemProps {
     label: string;
     value?: string|undefined;
     icon?: IconType;

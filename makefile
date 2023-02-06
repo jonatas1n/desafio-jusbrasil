@@ -1,14 +1,20 @@
+COMPOSE=docker-compose
+EXEC=docker exec -it
+
 up:
-	docker-compose up nginx
+	$(COMPOSE) up nginx
+
+restart:
+	$(COMPOSE) restart
 
 build:
-	docker-compose build
+	$(COMPOSE) build
 
 attach:
-	docker exec -it probusca_server bash
+	$(EXEC) probusca_server bash
 
 attach_api:
-	docker exec -it probusca_api bash
+	$(EXEC) probusca_api bash
 
 test:
-	docker-compose up tests
+	$(COMPOSE) up tests
