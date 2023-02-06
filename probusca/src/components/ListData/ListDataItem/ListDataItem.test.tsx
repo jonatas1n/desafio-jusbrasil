@@ -1,10 +1,7 @@
-import 'jest-dom/extend-expect';
-
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect } from '@jest/globals';
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
-import ListDataItem from "../src/components/ListData/ListDataItem"
-afterEach(cleanup);
+import { render } from "@testing-library/react";
+import ListDataItem from ".";
 
 describe('ListDataItem component', () => {
   it('renders the label, value, and icon', () => {

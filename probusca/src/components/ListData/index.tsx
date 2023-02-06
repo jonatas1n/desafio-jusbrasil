@@ -26,7 +26,7 @@ export default function ListData() {
             />
             {!!movement && <ListDataItem
                 label='Última movimentação'
-                value={movement[movement.length -1]?.data}
+                value={movement.at(-1)?.data}
                 icon={FaFileAlt}
             /> }
             <Flex gap='1rem'>
