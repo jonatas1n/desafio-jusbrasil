@@ -36,6 +36,8 @@ Caso seja necessário ter acesso por terminal do conteiner de projeto, basta exe
 
 ## Testes automatizados
 
+Os testes foram implementados usando a biblioteca Jest. Eles podem ser encontrados no mesmo diretório dos componentes.
+
 Para executar os testes automatizados, basta executar o comando:
 
 ``make test`` 

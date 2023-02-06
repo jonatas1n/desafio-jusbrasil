@@ -17,4 +17,4 @@ attach_api:
 	$(EXEC) probusca_api bash
 
 test:
-	$(COMPOSE) up tests
+	cd probusca && npm run test:watch
